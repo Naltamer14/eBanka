@@ -7,6 +7,7 @@
 </head>
 <body>
 @include('partials._navbar')
+
 <div class="content">
     @yield('content')
 </div>
