@@ -13,7 +13,8 @@
         @foreach ($myAccounts as $account)
             <tr>
                 <td>{{ $account->name }}</td>
-                <td>empty</td>
+                <td>
+                    {{ $account->user()->first()->name }}</td>
                 <td>empty</td>
                 <td>empty</td>
                 <td>{{ $account->balance }}</td>
