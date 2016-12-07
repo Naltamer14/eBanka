@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
+use App\Account;
 
 class User extends Authenticatable
 {
@@ -27,8 +29,26 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Return all the accounts the user has access to.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function accounts()
     {
         return $this->hasMany('App\Account');
+    }
+
+    /**
+     * Sum up all the available funds the user has (throughout his bank accounts)
+     * @return int
+     */
+    public function balance()
+    {
+        $balance = 0;
+        foreach ($this->accounts as $account)
+        {
+            $balance += $account->balance;
+        }
+        return $balance;
     }
 }

@@ -9,11 +9,6 @@ class Account extends Model
 {
     private $owner, $groupMembers;
 
-    public function __construct()
-    {
-        //$this->owner = DB::table('account_user_permissions')->get();
-    }
-
     /**
      * Get the account's owner
      * @return User

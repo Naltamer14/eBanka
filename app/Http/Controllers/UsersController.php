@@ -12,6 +12,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('admin', ['only' => 'show']);
         $this->middleware('auth', ['except' => 'create']);
     }
 
@@ -56,7 +57,6 @@ class UsersController extends Controller
     public function show($name)
     {
         $myUser = User::where('name', '=', $name)->first();
-        $this->middleware('admin');
         return view('users.show', compact('myUser'));
     }
 

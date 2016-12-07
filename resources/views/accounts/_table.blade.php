@@ -9,17 +9,18 @@
                 <th>Trenutno stanje</th>
             </tr>
         </thead>
-        <tbody>
-        @foreach ($myAccounts as $account)
-            <tr>
-                <td>{{ $account->name }}</td>
-                <td>
-                    {{ $account->user()->first()->name }}</td>
-                <td>empty</td>
-                <td>empty</td>
-                <td>{{ $account->balance }}</td>
-            </tr>
-        @endforeach
-        </tbody>
+        @unless (is_null($myAccounts))
+            @foreach ($myAccounts as $account)
+                <tbody>
+                    <tr>
+                        <td><a href="{{ action('AccountsController@show', ['id' => $account->id]) }}">{{ $account->name }}</a></td>
+                        <td>{{ $account->user()->first()->name }}</td>
+                        <td>empty</td>
+                        <td>empty</td>
+                        <td>€{{ number_format($account->balance, 2) }}</td>
+                    </tr>
+                </tbody>
+            @endforeach
+        @endunless
     </table>
 </div>

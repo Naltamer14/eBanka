@@ -21,7 +21,7 @@ class CreateAccountsTable extends Migration
             $table->string('account_number');
             $table->tinyInteger('type')->unsigned();
             */
-            $table->integer('balance');
+            $table->double('balance', 10, 2);
             $table->integer('limit')->nullable();
             $table->timestamp('limit_approved_until')->nullable();
             $table->timestamps();

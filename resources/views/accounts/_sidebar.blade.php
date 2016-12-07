@@ -1,6 +1,6 @@
 <div class="col-sm-2 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        <li class="active"><a href="#">Pregled <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="{{ action('AccountsController@index') }}">Pregled <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Poročila</a></li>
         <li><a href="#">Zgodovina</a></li>
         <li><a href="#">Analiza</a></li>

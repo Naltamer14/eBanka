@@ -19,7 +19,7 @@ class CreateAccountTransactionsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->text('details')->nullable();
             $table->text('description')->nullable();
-            $table->integer('ammount');
+            $table->double('ammount', 10, 2);
             $table->ipAddress('ip_address');
             $table->timestamps();
 
