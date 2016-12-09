@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AccountRequest;
 use Illuminate\Http\Request;
 use App\User;
 use App\Account;
+use Auth;
 
 class AccountsController extends Controller
 {
@@ -35,18 +37,19 @@ class AccountsController extends Controller
      */
     public function create()
     {
-        //
+        $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
+        return view('accounts.create', compact('myAccounts'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a new account.
+     * @param AccountRequest $request
+     * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store(Request $request)
+    public function store(AccountRequest $request)
     {
-        //
+        $account = Auth::user()->accounts()->create($request->all());
+        redirect('accounts');
     }
 
     /**
@@ -69,7 +72,17 @@ class AccountsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $myAccount = Account::findOrFail($id);
+        // Fallback account is null if it is the user's primary account
+        if(!is_null($myAccount->fallback_account))
+        {
+            $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
+        }
+        else
+        {
+            $myAccounts = null;
+        }
+        return view('accounts.edit', compact('myAccount', 'myAccounts'));
     }
 
     /**
@@ -79,9 +92,11 @@ class AccountsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AccountRequest $request, $id)
     {
-        //
+        $account = Account::findOrFail($id);
+        $account->update($request->all());
+        return redirect('accounts');
     }
 
     /**

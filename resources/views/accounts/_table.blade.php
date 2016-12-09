@@ -23,4 +23,5 @@
             @endforeach
         @endunless
     </table>
+    <a href="{!! action('AccountsController@create') !!}" class="btn btn-primary">Nov račun</a>
 </div>

@@ -33,11 +33,29 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'balance', 'limit', 'limit_approved_until',
+        'name', 'user_id', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * An account can have many accounts that fallback to it
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function fallbackAccounts()
+    {
+        return $this->hasMany('App\Account', 'fallback_account');
+    }
+
+    /**
+     * An account fallback's to another account
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function fallbackAccount()
+    {
+        return $this->belongsTo('App\Account', 'fallback_account');
     }
 }

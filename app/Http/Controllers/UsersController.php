@@ -8,15 +8,6 @@ use App\User;
 class UsersController extends Controller
 {
     /**
-     * Create a new users controller instance.
-     */
-    public function __construct()
-    {
-        $this->middleware('admin', ['only' => 'show']);
-        $this->middleware('auth', ['except' => 'create']);
-    }
-
-    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -25,27 +16,6 @@ class UsersController extends Controller
     {
         $users = User::all();
         return view('users.index', compact('users'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

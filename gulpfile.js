@@ -22,7 +22,8 @@ elixir(mix => {
     ]);
     mix.scripts([
         'libs/jquery.js',
-        'libs/select2.js'
+        'libs/select2.js',
+        'libs/bootstrap.js'
     ], 'public/js/all.js');
 
     mix.version([
