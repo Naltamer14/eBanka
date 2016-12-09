@@ -16,7 +16,7 @@ Route::get('/', 'HomeController@index');
 Route::group(['prefix' => 'users'], function()
 {
     Route::get('/', 'UsersController@index')->middleware('auth');
-    Route::get('/{user}', ['middleware' => ['auth', 'role:admin,Policar'], 'uses' =>'UsersController@show']);
+    Route::get('/{user}', 'UsersController@show')->middleware('auth');
     Route::get('/{user}/edit', 'UsersController@edit')->middleware('auth');
 });
 

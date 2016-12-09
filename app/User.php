@@ -46,11 +46,8 @@ class User extends Authenticatable
      */
     public function balance()
     {
-        $balance = 0;
-        foreach ($this->accounts as $account)
-        {
-            $balance += $account->balance;
-        }
-        return $balance;
+        return $this->accounts->reduce(function ($acc, $account) {
+            return $acc + $account->balance;
+        }, 0);
     }
 }
