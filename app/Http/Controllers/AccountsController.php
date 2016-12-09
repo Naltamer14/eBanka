@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AccountRequest;
-use Illuminate\Http\Request;
-use App\User;
 use App\Account;
+use App\Http\Requests\AccountRequest;
+use App\User;
 use Auth;
 
 class AccountsController extends Controller
 {
+
     /**
      * Create a new accounts controller instance.
      */
@@ -27,6 +27,7 @@ class AccountsController extends Controller
     {
         $myGroupMembers = User::all();
         $myAccounts = Account::all();
+
         return view('accounts.index', compact('myGroupMembers', 'myAccounts'));
     }
 
@@ -38,6 +39,7 @@ class AccountsController extends Controller
     public function create()
     {
         $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
+
         return view('accounts.create', compact('myAccounts'));
     }
 
@@ -48,61 +50,61 @@ class AccountsController extends Controller
      */
     public function store(AccountRequest $request)
     {
-        $account = Auth::user()->accounts()->create($request->all());
+        Auth::user()->accounts()->create($request->all());
         redirect('accounts');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
         $myAccount = Account::find($id);
+
         return view('accounts.show', compact('myAccount'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $myAccount = Account::findOrFail($id);
         // Fallback account is null if it is the user's primary account
-        if(!is_null($myAccount->fallback_account))
-        {
+        if (!is_null($myAccount->fallback_account)) {
             $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
-        }
-        else
-        {
+        } else {
             $myAccounts = null;
         }
+
         return view('accounts.edit', compact('myAccount', 'myAccounts'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param AccountRequest|\Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(AccountRequest $request, $id)
     {
         $account = Account::findOrFail($id);
         $account->update($request->all());
+
         return redirect('accounts');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
