@@ -51,7 +51,7 @@ class AccountsController extends Controller
     public function store(AccountRequest $request)
     {
         Auth::user()->accounts()->create($request->all());
-        redirect('accounts');
+        return redirect('accounts');
     }
 
     /**
