@@ -24,7 +24,7 @@
 @section('footer')
     <script>
         $('#fallback_account').select2({
-            placeholder: 'Choose a tag'
+            placeholder: 'Choose an account'
         });
     </script>
 @endsection

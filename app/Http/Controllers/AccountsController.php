@@ -93,10 +93,10 @@ class AccountsController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AccountRequest $request, $id)
+    public function update($id, AccountRequest $request)
     {
-        $account = Account::findOrFail($id);
-        $account->update($request->all());
+        $myAccount = Account::findOrFail($id);
+        $myAccount->update($request->all());
 
         return redirect('accounts');
     }
