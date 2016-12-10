@@ -10,7 +10,7 @@
                     <h5>Računi:</h5>
                     <ul>
                         @foreach ($user->accounts as $account)
-                            <li><a href="{{ action('AccountsController@show', ['id' => $account->id]) }}">{{ $account->name }}</a></li>
+                            <li><a href="{{ action('AccountsController@show', ['name' => $user->name, 'id' => $account->id]) }}">{{ $account->name }}</a></li>
                         @endforeach
                     </ul>
                 @endforeach

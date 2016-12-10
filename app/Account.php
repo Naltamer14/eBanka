@@ -51,6 +51,15 @@ class Account extends Model
     }
 
     /**
+     * All the transactions the account has had.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
+    /**
      * An account fallback's to another account
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

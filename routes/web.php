@@ -11,15 +11,13 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'HomeController@index')->name('home');
 
+Route::resource('users', 'UsersController', ['except' => 'create']);
 Route::group(['prefix' => 'users'], function()
 {
-    Route::get('/', 'UsersController@index')->middleware('auth');
-    Route::get('/{user}', 'UsersController@show')->middleware('auth');
-    Route::get('/{user}/edit', 'UsersController@edit')->middleware('auth');
 });
-
+Route::resource('transactions', 'TransactionsController', ['except' => 'destroy']);
 Route::resource('accounts', 'AccountsController');
 
 Auth::routes();

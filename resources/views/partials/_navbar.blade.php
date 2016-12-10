@@ -11,7 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ action('AccountsController@index') }}">Pregled</a></li>
+                <li><a href="{{ url('accounts') }}">Pregled</a></li>
                 <li><a href="#">Nastavitve</a></li>
                 <li><a href="#">Profil <span class="badge">7</span></a></li>
                 <li><a href="#">Pomoč</a></li>

@@ -13,5 +13,6 @@
                 @endforeach
             </ul>
         </ul>
+        <a href="{!! action('UsersController@edit', ['name' =>$myUser->name]) !!}" class="btn btn-primary">Spremeni podatke</a>
     </div>
 @endsection

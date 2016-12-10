@@ -21,8 +21,9 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param $name
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
     public function show($name)
     {
@@ -33,24 +34,30 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param $name
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit($name)
     {
-        //
+        $myUser = User::where('name', '=', $name)->first();
+        return view('users.edit', compact('myUser'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param $name
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $name)
     {
-        //
+        $myUser = User::where('name', '=', $name)->first();
+        $myUser->update($request->all());
+
+        return redirect('users');
     }
 
     /**

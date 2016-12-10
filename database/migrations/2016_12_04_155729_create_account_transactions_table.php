@@ -13,14 +13,15 @@ class CreateAccountTransactionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('account_transactions', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('account_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->text('details')->nullable();
-            $table->text('description')->nullable();
-            $table->double('ammount', 10, 2);
+            $table->string('purpose')->nullable();
+            $table->boolean('method');
+            $table->double('amount', 10, 2);
             $table->ipAddress('ip_address');
+            $table->timestamp('transferred_at');
             $table->timestamps();
 
             $table->foreign('account_id')

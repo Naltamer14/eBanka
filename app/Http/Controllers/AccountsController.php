@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Http\Requests\AccountRequest;
+use App\Role;
 use App\User;
 use Auth;
 
@@ -26,7 +27,7 @@ class AccountsController extends Controller
     public function index()
     {
         $myGroupMembers = User::all();
-        $myAccounts = Account::all();
+        $myAccounts = Auth::user()->accounts;
 
         return view('accounts.index', compact('myGroupMembers', 'myAccounts'));
     }

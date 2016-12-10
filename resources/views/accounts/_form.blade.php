@@ -5,7 +5,10 @@
 
 <div class="form-group">
     {!! Form::label('balance', 'Stanje:') !!}
-    {!! Form::text('balance', null, ['class' => 'form-control']) !!}
+    <div class="input-group">
+        <span class="input-group-addon" id="basic-addon1">€</span>
+        {!! Form::text('balance', null, ['class' => 'form-control']) !!}
+    </div>
 </div>
 
 @unless (is_null($myAccounts))

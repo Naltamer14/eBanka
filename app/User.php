@@ -41,7 +41,16 @@ class User extends Authenticatable
     }
 
     /**
-     * Sum up all the available funds the user has (throughout his bank accounts)
+     * All the transactions the user has made.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function transactions()
+    {
+        return $this->hasMany('App\Transaction');
+    }
+
+    /**
+     * Sum up all the available funds the user has (throughout his bank accounts).
      * @return int
      */
     public function balance()
