@@ -8,6 +8,16 @@ use App\User;
 class UsersController extends Controller
 {
     /**
+     * Create a new accounts controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin')->only(['index']);
+        $this->middleware('role:superuser')->only(['destroy']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
