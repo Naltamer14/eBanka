@@ -13,7 +13,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:admin')->only(['index']);
+        $this->middleware('role:superuser')->only(['index']);
         $this->middleware('role:superuser')->only(['destroy']);
     }
 
@@ -31,41 +31,41 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param $name
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param $name
      * @internal param int $id
      */
-    public function show($name)
+    public function show(User $user)
     {
-        $myUser = User::where('name', '=', $name)->first();
-        return view('users.show', compact('myUser'));
+        return view('users.show')->with('user', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param $name
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param $name
      * @internal param int $id
      */
-    public function edit($name)
+    public function edit(User $user)
     {
-        $myUser = User::where('name', '=', $name)->first();
-        return view('users.edit', compact('myUser'));
+        return view('users.edit')->with('user', $user);
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param User $user
      * @param  \Illuminate\Http\Request $request
-     * @param $name
      * @return \Illuminate\Http\Response
+     * @internal param $name
      * @internal param int $id
      */
-    public function update(Request $request, $name)
+    public function update(User $user, Request $request)
     {
-        $myUser = User::where('name', '=', $name)->first();
-        $myUser->update($request->all());
+        $user->update($request->all());
 
         return redirect('users');
     }

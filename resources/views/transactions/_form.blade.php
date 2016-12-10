@@ -10,7 +10,7 @@
 
 <div class="form-group">
     {!! Form::label('account_id', 'Transakcijski račun:') !!}
-    {!! Form::select('account_id', $myAccounts, null, ['id' => 'account_id','class' => 'form-control']) !!}
+    {!! Form::select('account_id', $accounts, null, ['id' => 'account_id','class' => 'form-control']) !!}
 </div>
 
 

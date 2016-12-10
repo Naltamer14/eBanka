@@ -9,11 +9,11 @@
                 <th>Trenutno stanje</th>
             </tr>
         </thead>
-        @unless (is_null($myAccounts))
-            @foreach ($myAccounts as $account)
+        @unless (is_null($user->accounts))
+            @foreach ($user->accounts as $account)
                 <tbody>
                     <tr>
-                        <td><a href="{{ action('AccountsController@show', ['id' => $account->id]) }}">{{ $account->name }}</a></td>
+                        <td><a href="{{ action('AccountsController@show', [$user, $account]) }}">{{ $account->name }}</a></td>
                         <td>{{ $account->user()->first()->name }}</td>
                         <td>empty</td>
                         <td>empty</td>
@@ -23,5 +23,5 @@
             @endforeach
         @endunless
     </table>
-    <a href="{!! action('AccountsController@create') !!}" class="btn btn-primary">Nov račun</a>
+    <a href="{!! action('AccountsController@create', $user) !!}" class="btn btn-primary">Nov račun</a>
 </div>

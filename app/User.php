@@ -59,4 +59,14 @@ class User extends Authenticatable
             return $acc + $account->balance;
         }, 0);
     }
+
+    /**
+     * The model field name that will be used to look up records in the database.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

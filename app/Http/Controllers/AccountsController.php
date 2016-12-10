@@ -22,84 +22,99 @@ class AccountsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\View\View
      */
-    public function index()
+    public function index(User $user)
     {
-        $myGroupMembers = User::all();
-        $myAccounts = Auth::user()->accounts;
+        $groupMembers = User::all();
+        $accounts = Auth::user()->accounts;
 
-        return view('accounts.index', compact('myGroupMembers', 'myAccounts'));
+        return view('accounts.index')
+            ->with('groupMembers', $groupMembers)
+            ->with('accounts', $accounts)
+            ->with('user', $user);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\View\View
      */
-    public function create()
+    public function create(User $user)
     {
-        $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
+        $accounts = ($user->accounts)->pluck('name', 'id');
 
-        return view('accounts.create', compact('myAccounts'));
+        return view('accounts.create')
+            ->with('accounts', $accounts)
+            ->with('user', $user);
     }
 
     /**
      * Store a new account.
+     * @param User $user
      * @param AccountRequest $request
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store(AccountRequest $request)
+    public function store(User $user, AccountRequest $request)
     {
-        Auth::user()->accounts()->create($request->all());
-        return redirect('accounts');
+        $user->accounts()->create($request->all());
+        return redirect('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @param Account $account
+     * @return \Illuminate\View\View
+     * @internal param int $id
      */
-    public function show($id)
+    public function show(User $user, Account $account)
     {
-        $myAccount = Account::find($id);
-
-        return view('accounts.show', compact('myAccount'));
+        return view('accounts.show')
+            ->with('account', $account)
+            ->with('user', $user);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @param Account $account
+     * @return \Illuminate\View\View
+     * @internal param int $id
      */
-    public function edit($id)
+    public function edit(User $user, Account $account)
     {
-        $myAccount = Account::findOrFail($id);
         // Fallback account is null if it is the user's primary account
-        if (!is_null($myAccount->fallback_account)) {
-            $myAccounts = (Auth::user()->accounts)->pluck('name', 'id');
+        if (!is_null($account->fallback_account)) {
+            $accounts = ($user->accounts)->pluck('name', 'id');
         } else {
-            $myAccounts = null;
+            $accounts = null;
         }
 
-        return view('accounts.edit', compact('myAccount', 'myAccounts'));
+        return view('accounts.edit')
+            ->with('account', $account)
+            ->with('accounts', $accounts)
+            ->with('user', $user);
     }
 
     /**
      * Update the specified resource in storage.
      *
+     * @param User $user
+     * @param Account $account
      * @param AccountRequest|\Illuminate\Http\Request $request
-     * @param  int $id
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function update($id, AccountRequest $request)
+    public function update(User $user, Account $account, AccountRequest $request)
     {
-        $myAccount = Account::findOrFail($id);
-        $myAccount->update($request->all());
+        $account->update($request->all());
 
-        return redirect('accounts');
+        return redirect('/');
     }
 
     /**

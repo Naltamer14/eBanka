@@ -66,7 +66,7 @@ class LaratrustSeeder extends Seeder
         // creating user with permissions
         if (!empty($userPermission)) {
             foreach ($userPermission as $key => $modules) {
-                foreach ($modules as $module => value) {
+                foreach ($modules as $module => $value) {
                     $permissions = explode(',', $value);
                     // Create default user for each permission set
                     $user = \App\User::create([
@@ -85,7 +85,7 @@ class LaratrustSeeder extends Seeder
                         ]);
 
                         $this->command->info('Creating Permission to '.$permissionValue.' for '. $module);
-                        
+
                         if (!$user->can($permission->name)) {
                             $user->attachPermission($permission);
                         } else {
@@ -104,13 +104,13 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        DB::statement('PRAGMA foreign_keys = OFF');
         DB::table('permission_role')->truncate();
         DB::table('permission_user')->truncate();
         DB::table('role_user')->truncate();
         \App\User::truncate();
         \App\Role::truncate();
         \App\Permission::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+        DB::statement('PRAGMA foreign_keys = OON');
     }
 }

@@ -7,7 +7,22 @@ use Illuminate\Support\Facades\DB;
 
 class Account extends Model
 {
-    private $owner, $groupMembers;
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'user_id', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
+    ];
+
+    public static function createPrimary(User $user)
+    {
+        Account::create([
+            'name' => 'Primary account',
+            'user_id' => $user->id
+        ]);
+    }
 
     /**
      * Get the account's owner
@@ -26,15 +41,6 @@ class Account extends Model
     {
         return $this->groupMembers;
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'name', 'user_id', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
-    ];
 
     public function user()
     {
@@ -66,5 +72,27 @@ class Account extends Model
     public function fallbackAccount()
     {
         return $this->belongsTo('App\Account', 'fallback_account');
+    }
+
+    /**
+     * Add an amount of money to the account.
+     *
+     * @param $amount
+     */
+    public function addBalance($amount)
+    {
+        $this->balance += $amount;
+        $this->save();
+    }
+
+    /**
+     * Remove an amount of money to the account.
+     *
+     * @param $amount
+     */
+    public function removeBalance($amount)
+    {
+        $this->balance -= $amount;
+        $this->save();
     }
 }

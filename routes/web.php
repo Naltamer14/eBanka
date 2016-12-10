@@ -14,7 +14,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('users', 'UsersController', ['before' => 'guest', 'except' => 'create']);
-Route::resource('transactions', 'TransactionsController', ['except' => 'destroy']);
-Route::resource('accounts', 'AccountsController');
+Route::resource('users.transactions', 'TransactionsController', ['except' => 'destroy']);
+Route::resource('users.accounts', 'AccountsController');
 
 Auth::routes();

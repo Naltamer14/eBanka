@@ -11,10 +11,10 @@
     </div>
 </div>
 
-@unless (is_null($myAccounts))
+@unless (is_null($accounts))
     <div class="form-group">
         {!! Form::label('fallback_account', 'Nadomestni račun:') !!}
-        {!! Form::select('fallback_account', $myAccounts, null, ['id' => 'fallback_account','class' => 'form-control']) !!}
+        {!! Form::select('fallback_account', $accounts, null, ['id' => 'fallback_account','class' => 'form-control']) !!}
     </div>
 @endunless
 
