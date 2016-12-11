@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="{{ url('accounts') }}">Pregled</a></li>
                 <li><a href="#">Nastavitve</a></li>
-                <li><a href="#">Profil <span class="badge">7</span></a></li>
+                <li><a href="{!! action('UsersController@show', Auth::user()) !!}">Profil <span class="badge">7</span></a></li>
                 <li><a href="#">Pomoč</a></li>
                 <li><a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Izpis</a><form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form></li>
             </ul>

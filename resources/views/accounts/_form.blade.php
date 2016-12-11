@@ -1,14 +1,12 @@
+
 <div class="form-group">
     {!! Form::label('name', 'Ime:') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {!! Form::label('balance', 'Stanje:') !!}
-    <div class="input-group">
-        <span class="input-group-addon" id="basic-addon1">€</span>
-        {!! Form::text('balance', null, ['class' => 'form-control']) !!}
-    </div>
+    {!! Form::label('balance', 'Stanje:') !!}<br>
+    {!! Form::text('balance', null, ['data-slider-id' => 'slider', 'style' => 'width: 100%']) !!}
 </div>
 
 @unless (is_null($accounts))
@@ -25,9 +23,20 @@
 @include('errors.list')
 
 @section('footer')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.5.3/bootstrap-slider.js"></script>
     <script>
         $('#fallback_account').select2({
             placeholder: 'Choose an account'
+        });
+
+        $('#balance').slider({
+            value: 0,
+            min: 0,
+            max: 1000,
+            step: 5,
+            formatter: function(value) {
+                return 'Trenutna vrednost: €' + value;
+            }
         });
     </script>
 @endsection

@@ -109,4 +109,29 @@ class Transaction extends Model
     {
         return Carbon::parse($date);
     }
+
+    public function formatAmount()
+    {
+        if($this->attributes['method'] == false)
+        {
+            return '- €'.  number_format($this->amount, 2);
+        }
+        else
+        {
+            return '+ €' . number_format($this->amount, 2);
+        }
+    }
+
+    public function formatAmountColored($classes)
+    {
+        $amount = $this->formatAmount();
+        if($this->attributes['method'] == false)
+        {
+            return "<span class='text-danger $classes'>$amount</span>";
+        }
+        else
+        {
+            return "<span class='text-success $classes'>$amount</span>";
+        }
+    }
 }

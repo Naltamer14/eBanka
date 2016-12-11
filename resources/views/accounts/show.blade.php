@@ -4,7 +4,7 @@
     <div class="col-sm-9 col-md-10 main">
         <h1 class="page-header">{{ $account->name }}</h1>
         <ul>
-            <li>Lastnik: <a href="{{ action('UsersController@show', $user) }}"> {{ $user->name }}</a></li>
+            <li>Lastnik: <a href="{{ action('UsersController@show', $user) }}"> {{ $account->user->name }}</a></li>
             <li>Razpoložljivo stanje: &euro;{{ number_format($account->balance, 2) }}</li>
 
             {{-- The account this account fallback's to --}}

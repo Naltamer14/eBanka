@@ -15,13 +15,7 @@
                                     <span class="small pull-right">{{ $transaction->user->name }} - {{ $transaction->account->name }}</span>
                                 </h4>
                                 <span class="list-group-item-text">{{ $transaction->transferred_at->diffForHumans() }}
-                                    <span class="small pull-right
-                                        @if($transaction->method == false)
-                                            text-danger">-€ {{  number_format($transaction->amount, 2) }}
-                                        @else
-                                            text-success">+€ {{ number_format($transaction->amount, 2) }}
-                                        @endif
-                                    </span>
+                                    {!! $transaction->formatAmountColored('pull-right') !!}
                                 </span>
                             </a>
                         @endforeach

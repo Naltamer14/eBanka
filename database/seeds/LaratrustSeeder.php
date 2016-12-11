@@ -104,13 +104,35 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        DB::statement('PRAGMA foreign_keys = OFF');
+        $this->setFKCheckOff();
         DB::table('permission_role')->truncate();
         DB::table('permission_user')->truncate();
         DB::table('role_user')->truncate();
         \App\User::truncate();
         \App\Role::truncate();
         \App\Permission::truncate();
-        DB::statement('PRAGMA foreign_keys = OON');
+        $this->setFKCheckOn();
+    }
+
+    private function setFKCheckOff() {
+        switch(config('DB_CONNECTION')) {
+            case 'mysql':
+                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+                break;
+            case 'sqlite':
+                DB::statement('PRAGMA foreign_keys = OFF');
+                break;
+        }
+    }
+
+    private function setFKCheckOn() {
+        switch(config('DB_CONNECTION')) {
+            case 'mysql':
+                DB::statement('SET FOREIGN_KEY_CHECKS=1');
+                break;
+            case 'sqlite':
+                DB::statement('PRAGMA foreign_keys = ON');
+                break;
+        }
     }
 }

@@ -60,10 +60,9 @@ class TransactionsController extends Controller
     public function store(User $user, Request $request)
     {
         $data = array_merge($request->all(), ['ip_address' => $request->ip()]);
-        $user->transactions()->create($data);
-        $account = $user->accounts($data['account_id'])->first();
-        $account->balance += $data['amount'];
-        $account->save();
+        $transaction = $user->transactions()->create($data);
+        $account = $user->accounts->where('id', $data['account_id'])->first();
+        $account->makeTransaction($transaction);
 
         return redirect('/');
     }

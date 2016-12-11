@@ -19,7 +19,7 @@ class Account extends Model
     public static function createPrimary(User $user)
     {
         Account::create([
-            'name' => 'Primary account',
+            'name' => 'Primarni račun',
             'user_id' => $user->id
         ]);
     }
@@ -66,7 +66,7 @@ class Account extends Model
     }
 
     /**
-     * An account fallback's to another account
+     * An account fallback's to another account.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function fallbackAccount()
@@ -75,24 +75,19 @@ class Account extends Model
     }
 
     /**
-     * Add an amount of money to the account.
-     *
-     * @param $amount
+     * Change the balance of an account through a transaction.
+     * @param $transaction
      */
-    public function addBalance($amount)
+    public function makeTransaction($transaction)
     {
-        $this->balance += $amount;
-        $this->save();
-    }
-
-    /**
-     * Remove an amount of money to the account.
-     *
-     * @param $amount
-     */
-    public function removeBalance($amount)
-    {
-        $this->balance -= $amount;
+        if($transaction->method == false)
+        {
+            $this->balance -= $transaction->amount;
+        }
+        else
+        {
+            $this->balance += $transaction->amount;
+        }
         $this->save();
     }
 }

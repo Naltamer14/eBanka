@@ -17,10 +17,12 @@ elixir(mix => {
     mix.sass('app.scss', 'resources/assets/css');
 
     mix.styles([
+        'libs/bootstrap-slider.css',
         'libs/select2.css',
         'app.css'
     ]);
     mix.scripts([
+        'libs/bootstrap-slider.js',
         'libs/jquery.js',
         'libs/select2.js',
         'libs/bootstrap.js'
