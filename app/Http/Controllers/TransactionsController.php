@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TransactionRequest;
 use Auth;
 use Illuminate\Http\Request;
 use App\User;
@@ -61,10 +62,10 @@ class TransactionsController extends Controller
      * Make a transaction.
      *
      * @param User $user
-     * @param Request $request
+     * @param TransactionRequest|Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(User $user, Request $request)
+    public function store(User $user, TransactionRequest $request)
     {
         $data = array_merge($request->all(), ['ip_address' => $request->ip()]);
         $transaction = $user->transactions()->create($data);
@@ -114,11 +115,11 @@ class TransactionsController extends Controller
      *
      * @param User $user
      * @param Transaction $transaction
-     * @param  \Illuminate\Http\Request $request
+     * @param TransactionRequest|Request $request
      * @return \Illuminate\Http\Response
      * @internal param int $id
      */
-    public function update(User $user, Transaction $transaction, Request $request)
+    public function update(User $user, Transaction $transaction, TransactionRequest $request)
     {
         $transaction->update($request->all());
 

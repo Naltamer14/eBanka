@@ -1,11 +1,11 @@
 
 <div class="form-group">
-    {!! Form::label('name', 'Ime:') !!}
+    {!! Form::label('name', '*Ime:') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
-    {!! Form::label('balance', 'Stanje:') !!}<br>
+    {!! Form::label('balance', '*Stanje:') !!}<br>
     {!! Form::text('balance', null, ['data-slider-id' => 'slider', 'style' => 'width: 100%']) !!}
 </div>
 
@@ -30,7 +30,7 @@
         });
 
         $('#balance').slider({
-            value: {{ $account->balance }},
+            value: {{ (($account->balance) ? $account->balance : 0) }},
             min: -1000,
             max: 1000,
             step: 5,

@@ -25,7 +25,8 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:4'
+            'name' => 'required|min:4',
+            'balance' => 'required|max:4'
         ];
     }
 }
