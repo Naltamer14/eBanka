@@ -4,14 +4,15 @@ return [
     'role_structure' => [
         'superuser' => [
             'users' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'transactions' => 'c,r,u,d'
         ],
         'administrator' => [
             'users' => 'c,r,u,d',
-            'profile' => 'r,u'
+            'transactions' => 'c,r'
         ],
         'user' => [
-            'profile' => 'r,u'
+            'users' => 'c,r,u,d',
+            'transactions' => 'c'
         ],
     ],
     'permission_structure' => [

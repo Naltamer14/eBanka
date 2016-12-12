@@ -16,7 +16,6 @@ class TransactionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:superuser')->only(['index']);
         $this->middleware('role:superuser')->only(['edit', 'update']);
     }
 
@@ -28,7 +27,11 @@ class TransactionsController extends Controller
      */
     public function index(User $user)
     {
-        $transactions = Transaction::latest('transferred_at')->transferred()->paginate(10);
+        if($user->can('transactions-read'))
+            $transactions = Transaction::latest('transferred_at')->transferred()->paginate(10);
+        else
+            $transactions = $user->transactions()->latest('transferred_at')->transferred()->paginate(10);
+
         return view('transactions.index')
             ->with('transactions', $transactions)
             ->with('user', $user);

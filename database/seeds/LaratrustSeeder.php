@@ -104,14 +104,24 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        $this->setFKCheckOff();
-        DB::table('permission_role')->truncate();
-        DB::table('permission_user')->truncate();
-        DB::table('role_user')->truncate();
-        \App\User::truncate();
-        \App\Role::truncate();
-        \App\Permission::truncate();
-        $this->setFKCheckOn();
+        if(config('DB_CONNECTION') == 'pgsql')
+        {
+            DB::statement('GRANT ALL ON SCHEMA public TO postgres;');
+            DB::statement('DROP SCHEMA public CASCADE;');
+            DB::statement('CREATE SCHEMA public;');
+            DB::statement('GRANT ALL ON SCHEMA public TO public;');
+        }
+        else
+        {
+            $this->setFKCheckOff();
+            DB::table('permission_role')->truncate();
+            DB::table('permission_user')->truncate();
+            DB::table('role_user')->truncate();
+            \App\User::truncate();
+            \App\Role::truncate();
+            \App\Permission::truncate();
+            $this->setFKCheckOn();
+        }
     }
 
     private function setFKCheckOff() {
