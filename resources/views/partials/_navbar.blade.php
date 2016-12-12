@@ -11,7 +11,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ url('accounts') }}">Pregled</a></li>
+                <li><a href="{{ action('AccountsController@index', Auth::user()) }}">Pregled</a></li>
                 <li><a href="#">Nastavitve</a></li>
                 <li><a href="{!! action('UsersController@show', Auth::user()) !!}">Profil <span class="badge">7</span></a></li>
                 <li><a href="#">Pomoč</a></li>

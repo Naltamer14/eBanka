@@ -90,4 +90,17 @@ class Account extends Model
         }
         $this->save();
     }
+
+    public static function formatBalance($balance, $positive, $classes = '')
+    {
+        $amount = '€' . number_format($balance, 2);
+        if($positive)
+        {
+            return "<span class='text-success $classes'>+ $amount</span>";
+        }
+        else
+        {
+            return "<span class='text-danger $classes'>- $amount</span>";
+        }
+    }
 }
