@@ -17,4 +17,6 @@ Route::resource('users', 'UsersController', ['before' => 'guest', 'except' => 'c
 Route::resource('users.transactions', 'TransactionsController', ['except' => 'destroy']);
 Route::resource('users.accounts', 'AccountsController');
 
+Route::get('transactions', 'TransactionsController@all')->name('transactions.all');
+
 Auth::routes();

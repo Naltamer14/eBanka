@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -13,8 +14,6 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:superuser')->only(['index']);
-        $this->middleware('role:superuser')->only(['destroy']);
     }
 
     /**
@@ -25,7 +24,9 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('users.index')
+            ->with('users', $users)
+            ->with('user', Auth::user());
     }
 
     /**

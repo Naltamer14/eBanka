@@ -106,10 +106,8 @@ class LaratrustSeeder extends Seeder
     {
         if(config('DB_CONNECTION') == 'pgsql')
         {
-            DB::statement('GRANT ALL ON SCHEMA public TO postgres;');
             DB::statement('DROP SCHEMA public CASCADE;');
             DB::statement('CREATE SCHEMA public;');
-            DB::statement('GRANT ALL ON SCHEMA public TO public;');
         }
         else
         {
