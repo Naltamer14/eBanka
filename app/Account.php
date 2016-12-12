@@ -91,16 +91,38 @@ class Account extends Model
         $this->save();
     }
 
-    public static function formatBalance($balance, $positive, $classes = '')
+    /**
+     * Output a colored format of a balance
+     *
+     * @param $balance
+     * @param string $classes
+     * @return string
+     * @internal param $positive
+     *
+     */
+    public static function formatBalance($balance, $classes = '')
     {
-        $amount = '€' . number_format($balance, 2);
+        ($balance > 0) ? $positive = true : $positive = false;
+        $amount = '€' . number_format(abs($balance), 2);
         if($positive)
         {
             return "<span class='text-success $classes'>+ $amount</span>";
+        }
+        else if($balance == 0)
+        {
+            return "<span class='text-warning $classes'>$amount</span>";
         }
         else
         {
             return "<span class='text-danger $classes'>- $amount</span>";
         }
+    }
+
+    public function availableFunds()
+    {
+        if ($this->balance > 0)
+            return $this->balance;
+        else
+            return 0;
     }
 }

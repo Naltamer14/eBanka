@@ -109,4 +109,12 @@ class Transaction extends Model
     {
         return Carbon::parse($date);
     }
+
+    public function balance()
+    {
+        if ($this->method)
+            return $this->amount;
+        else
+            return -$this->amount;
+    }
 }

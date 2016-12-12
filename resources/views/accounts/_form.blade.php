@@ -30,8 +30,8 @@
         });
 
         $('#balance').slider({
-            value: 0,
-            min: 0,
+            value: {{ $account->balance }},
+            min: -1000,
             max: 1000,
             step: 5,
             formatter: function(value) {

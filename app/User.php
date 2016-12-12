@@ -60,6 +60,14 @@ class User extends Authenticatable
         }, 0);
     }
 
+    public function availableFunds()
+    {
+        if ($this->balance() > 0)
+            return $this->balance();
+        else
+            return 0;
+    }
+
     /**
      * The model field name that will be used to look up records in the database.
      *

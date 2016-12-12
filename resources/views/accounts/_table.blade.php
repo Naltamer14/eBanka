@@ -17,7 +17,7 @@
                         <td>{{ $account->user()->first()->name }}</td>
                         <td>empty</td>
                         <td>empty</td>
-                        <td>€{{ number_format($account->balance, 2) }}</td>
+                        <td>{!! App\Account::formatBalance($account->balance) !!}</td>
                     </tr>
                 </tbody>
             @endforeach
