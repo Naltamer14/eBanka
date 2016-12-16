@@ -12,5 +12,6 @@
     </ul>
     <ul class="nav nav-sidebar">
         <li class="{{ isActiveRoute('users.index') }} list-group-item-warning"><a href="{!! action('UsersController@index') !!}">Vsi uporabniki</a></li>
+        <li class="{{ isActiveRoute('accounts.all') }} list-group-item-warning"><a href="{!! action('AccountsController@all') !!}">Vsi računi</a></li>
     </ul>
 </div>

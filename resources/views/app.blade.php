@@ -7,9 +7,14 @@
 </head>
 <body>
 @include('partials._navbar')
-
-<div class="content">
-    @yield('content')
+@include('accounts._sidebar')
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            @include('flash::message')
+            @yield('content')
+        </div>
+    </div>
 </div>
 
 <script src="{{ elixir('js/all.js') }}"></script>

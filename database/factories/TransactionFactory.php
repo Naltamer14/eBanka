@@ -17,7 +17,7 @@ $factory->define(App\Transaction::class, function (Faker\Generator $faker) {
     return [
         'account_id' => $random_account_id,
         'user_id'  => $random_user_id,
-        'purpose' => $faker->text(40),
+        'purpose' => $faker->text(60),
         'method' => $method,
         'amount' => $amount,
         'ip_address' => $faker->ipv4,

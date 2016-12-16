@@ -17,5 +17,7 @@ class AccountSeeder extends Seeder
         {
             \App\Account::createPrimary($user);
         }
+
+        factory(App\Account::class, 50)->create();
     }
 }

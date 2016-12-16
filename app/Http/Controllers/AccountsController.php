@@ -27,13 +27,29 @@ class AccountsController extends Controller
      */
     public function index(User $user)
     {
-        $groupMembers = User::all();
-        $accounts = Auth::user()->accounts;
+        $groupMembers = User::paginate(4, null, 'members');
+        $accounts = $user->accounts()->paginate(10, null, 'accounts');
 
         return view('accounts.index')
             ->with('groupMembers', $groupMembers)
             ->with('accounts', $accounts)
             ->with('user', $user);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function all()
+    {
+        $accounts = Account::orderBy('updated_at', 'desc')->paginate(30);
+
+        return view('accounts.index')
+            ->with('accounts', $accounts)
+            ->with('user', Auth::user())
+            ->with('noCreateButton', $noCreateButton = false);
     }
 
     /**
@@ -60,6 +76,7 @@ class AccountsController extends Controller
     public function store(User $user, AccountRequest $request)
     {
         $user->accounts()->create($request->all());
+        flash('Vaš račun je bil uspešno ustvarjen.', 'success');
         return redirect('/');
     }
 
@@ -113,6 +130,7 @@ class AccountsController extends Controller
     public function update(User $user, Account $account, AccountRequest $request)
     {
         $account->update($request->all());
+        flash('Račun ' . $account->name . ' je bil uspešno posodobljen.', 'success');
 
         return redirect('/');
     }

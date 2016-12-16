@@ -23,7 +23,6 @@
 @include('errors.list')
 
 @section('footer')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.5.3/bootstrap-slider.js"></script>
     <script>
         $('#fallback_account').select2({
             placeholder: 'Choose an account'

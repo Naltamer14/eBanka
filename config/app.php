@@ -181,6 +181,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
     ],
 
@@ -234,6 +235,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Laratrust'   => Laratrust\LaratrustFacade::class,
         'Ekko' => Laravelista\Ekko\Facades\Ekko::class,
+        'Flash' => Laracasts\Flash\Flash::class,
 
     ],
 

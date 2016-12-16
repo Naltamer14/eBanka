@@ -12,7 +12,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         factory(App\User::class, 'Klemen')->create();
-        factory(App\User::class, 2)->create();
+        factory(App\User::class, 5)->create();
 
     }
 }

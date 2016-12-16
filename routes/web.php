@@ -18,5 +18,6 @@ Route::resource('users.transactions', 'TransactionsController', ['except' => 'de
 Route::resource('users.accounts', 'AccountsController');
 
 Route::get('transactions', 'TransactionsController@all')->name('transactions.all');
+Route::get('accounts', 'AccountsController@all')->name('accounts.all');
 
 Auth::routes();

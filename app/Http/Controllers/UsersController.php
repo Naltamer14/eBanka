@@ -20,11 +20,11 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(30);
         return view('users.index')
             ->with('users', $users)
             ->with('user', Auth::user());
@@ -68,6 +68,7 @@ class UsersController extends Controller
     public function update(User $user, UserRequest $request)
     {
         $user->update($request->all());
+        flash('Profil ' . $user->name . ' je bil uspešno posodobljen.', 'success');
 
         return redirect('users');
     }

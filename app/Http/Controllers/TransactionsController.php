@@ -72,6 +72,7 @@ class TransactionsController extends Controller
         $account = $user->accounts->where('id', $data['account_id'])->first();
         $account->makeTransaction($transaction);
 
+        flash('Transakcija je uspela.', 'success');
         return redirect('/');
     }
 
@@ -122,6 +123,7 @@ class TransactionsController extends Controller
     public function update(User $user, Transaction $transaction, TransactionRequest $request)
     {
         $transaction->update($request->all());
+        flash('Transakcija ' . $transaction->id . ' je bila uspešno posodobljena.', 'success');
 
         return redirect('/');
     }

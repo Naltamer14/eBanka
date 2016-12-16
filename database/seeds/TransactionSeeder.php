@@ -13,6 +13,6 @@ class TransactionSeeder extends Seeder
     {
         DB::table('transactions')->truncate();
 
-        factory(App\Transaction::class, 40)->create();
+        factory(App\Transaction::class, 100)->create();
     }
 }
