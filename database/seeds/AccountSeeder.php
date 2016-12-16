@@ -15,7 +15,11 @@ class AccountSeeder extends Seeder
 
         foreach (App\User::all() as $user)
         {
-            \App\Account::createPrimary($user);
+            factory(App\Account::class)->create([
+                'user_id'  => $user->id,
+                'name' => 'Primary account',
+                'fallback_account' => null
+            ]);
         }
 
         factory(App\Account::class, 50)->create();

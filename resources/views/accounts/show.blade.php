@@ -4,8 +4,9 @@
     <h1 class="page-header">{{ $account->name }}</h1>
     <ul>
         <li>Lastnik: <a href="{{ action('UsersController@show', $user) }}"> {{ $account->user->name }}</a></li>
+        <li>Tip: {{ $account->type }}</li>
+        <li>Številka kartice: {{ $account->card_number }}</li>
         <li>Razpoložljivo stanje: {!! App\Account::formatBalance($account->availableFunds(), 2) !!}</li>
-        <li>Ustvarjeno: {{ $account->created_at->diffForHumans() }}</li>
 
         {{-- The account this account fallback's to --}}
         @unless (is_null($account->fallbackAccount))
@@ -32,6 +33,9 @@
             </ul>
         </li>
         @endunless
+
+        <li>Ustvarjeno: {{ $account->created_at->diffForHumans() }}</li>
+        <li>Zadnje urejano: {{ $account->updated_at->diffForHumans() }}</li>
 
     </ul>
     <a href="{!! action('AccountsController@edit', ['user' => $user, 'account' =>$account]) !!}" class="btn btn-primary">Uredi račun</a>

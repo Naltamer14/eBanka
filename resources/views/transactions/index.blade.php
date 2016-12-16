@@ -10,7 +10,7 @@
                     <span class="small pull-right">{{ $transaction->user->name }} - {{ $transaction->account->name }}</span>
                 </h4>
                 <span class="list-group-item-text">{{ $transaction->transferred_at->diffForHumans() }}
-                    {!! App\Account::formatBalance($transaction->balance(), 'pull-right') !!}
+                    {!! App\Account::formatBalance($transaction->amount, 'pull-right') !!}
                 </span>
             </a>
         @endforeach

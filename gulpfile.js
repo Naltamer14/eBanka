@@ -22,10 +22,8 @@ elixir(mix => {
         'app.css'
     ]);
     mix.scripts([
-        'libs/jquery.js',
         'libs/bootstrap-slider.js',
         'libs/select2.js',
-        'libs/bootstrap.js'
     ], 'public/js/all.js');
 
     mix.version([

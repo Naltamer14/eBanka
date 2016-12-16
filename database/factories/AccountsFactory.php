@@ -15,6 +15,8 @@ $factory->define(App\Account::class, function (Faker\Generator $faker) {
     return [
         'user_id'  => $random_user_id,
         'name' => $faker->text(20),
+        'card_number' => $faker->creditCardNumber(),
+        'type' => $faker->biasedNumberBetween(0, 3),
         'balance' => $faker->biasedNumberBetween(-1000, 1000),
         'limit' => $faker->biasedNumberBetween(0, 1000),
         'limit_approved_until' => $faker->dateTimeBetween('now', '10 years')->format('Y-m-d'),

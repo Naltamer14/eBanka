@@ -105,13 +105,7 @@ class AccountsController extends Controller
      */
     public function edit(User $user, Account $account)
     {
-        // Fallback account is null if it is the user's primary account
-        if (!is_null($account->fallback_account)) {
-            $accounts = ($user->accounts)->pluck('name', 'id');
-        } else {
-            $accounts = null;
-        }
-
+        $accounts = ($user->accounts)->pluck('name', 'id');
         return view('accounts.edit')
             ->with('account', $account)
             ->with('accounts', $accounts)

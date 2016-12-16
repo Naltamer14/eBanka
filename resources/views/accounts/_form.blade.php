@@ -9,12 +9,15 @@
     {!! Form::text('balance', null, ['data-slider-id' => 'slider', 'style' => 'width: 100%']) !!}
 </div>
 
-@unless (is_null($accounts))
-    <div class="form-group">
-        {!! Form::label('fallback_account', 'Nadomestni račun:') !!}
-        {!! Form::select('fallback_account', $accounts, null, ['id' => 'fallback_account','class' => 'form-control']) !!}
-    </div>
-@endunless
+<div class="form-group">
+    {!! Form::label('type', '*Tip računa:') !!}
+    {!! Form::select('type', ['Navadni','Varčni', 'Upokojitveni', 'Zaklenjeni'], null, ['id' => 'type','class' => 'form-control']) !!}
+</div>
+
+<div class="form-group">
+    {!! Form::label('fallback_account', 'Nadomestni račun:') !!}
+    {!! Form::select('fallback_account', $accounts, null, ['id' => 'fallback_account','class' => 'form-control']) !!}
+</div>
 
 <div class="form-group">
     {!! Form::submit($submitButtonText, ['class' => 'btn btn-primary form-control']) !!}
@@ -25,7 +28,12 @@
 @section('footer')
     <script>
         $('#fallback_account').select2({
-            placeholder: 'Choose an account'
+            placeholder: 'Izberi si račun',
+            allowClear: true
+        });
+        $('#type').select2({
+            placeholder: 'Izberi tip računa',
+            minimumResultsForSearch: -1
         });
 
         $('#balance').slider({

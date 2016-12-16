@@ -68,6 +68,9 @@ class TransactionsController extends Controller
     public function store(User $user, TransactionRequest $request)
     {
         $data = array_merge($request->all(), ['ip_address' => $request->ip()]);
+        if (!$data['method']) {
+            $data['amount'] = -$data['amount'];
+        }
         $transaction = $user->transactions()->create($data);
         $account = $user->accounts->where('id', $data['account_id'])->first();
         $account->makeTransaction($transaction);
@@ -104,6 +107,8 @@ class TransactionsController extends Controller
     public function edit(User $user, Transaction $transaction)
     {
         $accounts = $user->accounts()->pluck('name', 'id');
+        $transaction->method = (int) ($transaction->amount >= 0);
+        $transaction->amount = abs($transaction->amount);
 
         return view('transactions.edit')
             ->with('transaction', $transaction)

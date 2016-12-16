@@ -5,7 +5,7 @@
                 <th>Ime računa</th>
                 <th>Lastnik</th>
                 <th>Tip</th>
-                <th>Številka računa</th>
+                <th>Številka kartice</th>
                 <th>Trenutno stanje</th>
             </tr>
         </thead>
@@ -15,8 +15,8 @@
                     <tr>
                         <td><a href="{{ action('AccountsController@show', [$user, $account]) }}">{{ $account->name }}</a></td>
                         <td>{{ $account->user()->first()->name }}</td>
-                        <td>empty</td>
-                        <td>empty</td>
+                        <td>{{ $account->account_type }}</td>
+                        <td><a href="">{{ $account->card_number }}</a></td>
                         <td>{!! App\Account::formatBalance($account->balance) !!}</td>
                     </tr>
                 </tbody>

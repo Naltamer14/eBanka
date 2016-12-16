@@ -8,7 +8,7 @@
         <hr>
         <li>Namen: {{ $transaction->purpose }}</li>
         <li>Tip: {{ $transaction->type }}</li>
-        <li>Vsota: {!! App\Account::formatBalance($transaction->balance()) !!}</li>
+        <li>Vsota: {!! App\Account::formatBalance($transaction->amount) !!}</li>
         <li>Datum: {{ $transaction->transferred_at }}</li>
     </ul>
     <a href="{!! action('TransactionsController@edit', ['user' => $user, 'transaction' =>$transaction]) !!}" class="btn btn-primary">Uredi transakcijo</a>

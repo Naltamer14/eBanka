@@ -13,16 +13,8 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
+        'name', 'user_id', 'type', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
     ];
-
-    public static function createPrimary(User $user)
-    {
-        Account::create([
-            'name' => 'Primarni račun',
-            'user_id' => $user->id
-        ]);
-    }
 
     /**
      * Get the account's owner
@@ -42,6 +34,11 @@ class Account extends Model
         return $this->groupMembers;
     }
 
+    /**
+     * The user the account belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -75,19 +72,32 @@ class Account extends Model
     }
 
     /**
+     * Get the 'type' attribute.
+     *
+     * @return string
+     */
+    public function getAccountTypeAttribute()
+    {
+        switch($this->attributes['type'])
+        {
+            case 0:
+                return 'Navadni';
+            case 1:
+                return 'Varčni';
+            case 2:
+                return 'Upokojitveni';
+            case 3:
+                return 'Zaklenjeni';
+        }
+    }
+
+    /**
      * Change the balance of an account through a transaction.
      * @param $transaction
      */
     public function makeTransaction($transaction)
     {
-        if($transaction->method == false)
-        {
-            $this->balance -= $transaction->amount;
-        }
-        else
-        {
-            $this->balance += $transaction->amount;
-        }
+        $this->balance += $transaction->amount;
         $this->save();
     }
 
@@ -118,6 +128,11 @@ class Account extends Model
         }
     }
 
+    /**
+     * All available funds
+     *
+     * @return int|mixed
+     */
     public function availableFunds()
     {
         if ($this->balance > 0)

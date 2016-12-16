@@ -16,7 +16,6 @@ class Transaction extends Model
         'account_id',
         'user_id',
         'purpose',
-        'method',
         'amount',
         'ip_address',
         'transferred_at',
@@ -65,9 +64,27 @@ class Transaction extends Model
      */
     public function getTypeAttribute()
     {
-        if($this->attributes['method'] == false) { return 'Dvig'; }
-        else { return 'Polog'; }
+        if($this->amount >= 0)
+        {
+            return 'Polog';
+        }
+        else
+        {
+            return 'Dvig';
+        }
     }
+
+    /**
+     * Set the 'amount' attribute.
+     * @param $value
+     */
+//    public function setAmountAttribute($value)
+//    {
+//        if($type == 0)
+//        {
+//            $this->attributes['amount'] = -$value;
+//        }
+//    }
 
     /**
      * All the already transferred transactions.
@@ -108,13 +125,5 @@ class Transaction extends Model
     public function getTransferredAtAttribute($date)
     {
         return Carbon::parse($date);
-    }
-
-    public function balance()
-    {
-        if ($this->method)
-            return $this->amount;
-        else
-            return -$this->amount;
     }
 }

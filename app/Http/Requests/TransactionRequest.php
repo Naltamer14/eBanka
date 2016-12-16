@@ -25,7 +25,6 @@ class TransactionRequest extends FormRequest
     {
         return [
             'purpose' => 'required|min:4',
-            'method' => 'required|boolean',
             'account_id' => 'required',
             'amount' => 'required',
             'transferred_at' => 'required|date'
