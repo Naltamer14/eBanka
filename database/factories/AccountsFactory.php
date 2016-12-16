@@ -17,7 +17,7 @@ $factory->define(App\Account::class, function (Faker\Generator $faker) {
         'name' => $faker->text(20),
         'card_number' => $faker->creditCardNumber(),
         'type' => $faker->biasedNumberBetween(0, 3),
-        'balance' => $faker->biasedNumberBetween(-1000, 1000),
+        'balance' => $faker->biasedNumberBetween(-100, 100),
         'limit' => $faker->biasedNumberBetween(0, 1000),
         'limit_approved_until' => $faker->dateTimeBetween('now', '10 years')->format('Y-m-d'),
         'fallback_account' => $random_account_fallback,

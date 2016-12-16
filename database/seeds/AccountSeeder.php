@@ -17,7 +17,7 @@ class AccountSeeder extends Seeder
         {
             factory(App\Account::class)->create([
                 'user_id'  => $user->id,
-                'name' => 'Primary account',
+                'name' => 'Primarni račun',
                 'fallback_account' => null
             ]);
         }

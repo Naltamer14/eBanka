@@ -4,7 +4,7 @@
     <h1 class="page-header">{{ $account->name }}</h1>
     <ul>
         <li>Lastnik: <a href="{{ action('UsersController@show', $user) }}"> {{ $account->user->name }}</a></li>
-        <li>Tip: {{ $account->type }}</li>
+        <li>Tip: {{ $account->account_type }}</li>
         <li>Številka kartice: {{ $account->card_number }}</li>
         <li>Razpoložljivo stanje: {!! App\Account::formatBalance($account->availableFunds(), 2) !!}</li>
 

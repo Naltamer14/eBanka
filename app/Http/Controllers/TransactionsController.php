@@ -51,7 +51,7 @@ class TransactionsController extends Controller
      */
     public function create(User $user)
     {
-        $accounts = (Auth::user()->accounts)->pluck('name', 'id');
+        $accounts = ($user->accounts)->pluck('name', 'id');
 
         return view('transactions.create')
             ->with('user', $user)

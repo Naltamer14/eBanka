@@ -18,7 +18,7 @@ class CreateAccountsTable extends Migration
             $table->integer('user_id')->unsigned(); // Temporary
             $table->string('name');
             $table->string('card_number')->nullable();
-            $table->integer('type')->unsigned();
+            $table->integer('type')->unsigned()->default(0);
             $table->decimal('balance', 10, 2)->default(0);
             $table->integer('limit')->nullable();
             $table->timestamp('limit_approved_until')->nullable();

@@ -72,6 +72,7 @@ class RegisterController extends Controller
         \App\Account::create([
             'name' => 'Primarni račun',
             'user_id' => $user->id,
+            'type' => 0,
         ]);
 
         return $user;

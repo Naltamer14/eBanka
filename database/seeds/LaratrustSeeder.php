@@ -104,43 +104,35 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        if(config('DB_CONNECTION') == 'pgsql')
-        {
-            DB::statement('DROP SCHEMA public CASCADE;');
-            DB::statement('CREATE SCHEMA public;');
-        }
-        else
-        {
-            $this->setFKCheckOff();
-            DB::table('permission_role')->truncate();
-            DB::table('permission_user')->truncate();
-            DB::table('role_user')->truncate();
-            \App\User::truncate();
-            \App\Role::truncate();
-            \App\Permission::truncate();
-            $this->setFKCheckOn();
-        }
+        Eloquent::unguard();
+        DB::table('permission_role')->delete();
+        DB::table('permission_user')->delete();
+        DB::table('role_user')->delete();
+        DB::table('users')->delete();
+        DB::table('roles')->delete();
+        DB::table('permissions')->delete();
+        Eloquent::reguard();
     }
 
-    private function setFKCheckOff() {
-        switch(config('DB_CONNECTION')) {
-            case 'mysql':
-                DB::statement('SET FOREIGN_KEY_CHECKS=0');
-                break;
-            case 'sqlite':
-                DB::statement('PRAGMA foreign_keys = OFF');
-                break;
-        }
-    }
-
-    private function setFKCheckOn() {
-        switch(config('DB_CONNECTION')) {
-            case 'mysql':
-                DB::statement('SET FOREIGN_KEY_CHECKS=1');
-                break;
-            case 'sqlite':
-                DB::statement('PRAGMA foreign_keys = ON');
-                break;
-        }
-    }
+//    private function setFKCheckOff() {
+//        switch(config('DB_CONNECTION')) {
+//            case 'mysql':
+//                DB::statement('SET FOREIGN_KEY_CHECKS=0');
+//                break;
+//            case 'sqlite':
+//                DB::statement('PRAGMA foreign_keys = OFF');
+//                break;
+//        }
+//    }
+//
+//    private function setFKCheckOn() {
+//        switch(config('DB_CONNECTION')) {
+//            case 'mysql':
+//                DB::statement('SET FOREIGN_KEY_CHECKS=1');
+//                break;
+//            case 'sqlite':
+//                DB::statement('PRAGMA foreign_keys = ON');
+//                break;
+//        }
+//    }
 }

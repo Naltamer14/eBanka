@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>eBanka</title>
     <link rel="stylesheet" href="{{ elixir('css/all.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 @include('partials._navbar')
@@ -16,10 +17,11 @@
         </div>
     </div>
 </div>
-<footer>@yield('footer')</footer>
+
 <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="{{ elixir('js/all.js') }}"></script>
+<footer>@yield('footer')</footer>
 <script>
     $('div.alert').not('.alert-important').delay(3000).slideUp(300);
 </script>
