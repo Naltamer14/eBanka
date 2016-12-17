@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->call(LaratrustSeeder::class);
-        //$this->call(UserSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(AccountSeeder::class);
         $this->call(TransactionSeeder::class);

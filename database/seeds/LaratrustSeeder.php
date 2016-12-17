@@ -12,7 +12,7 @@ class LaratrustSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info('Truncating User, Role and Permission tables');
+        $this->command->info('Deleting Users, Roles and Permissions tables');
         $this->truncateLaratrustTables();
         
         $config = config('laratrust_seeder.role_structure');
@@ -104,35 +104,9 @@ class LaratrustSeeder extends Seeder
      */
     public function truncateLaratrustTables()
     {
-        Eloquent::unguard();
         DB::table('permission_role')->delete();
         DB::table('permission_user')->delete();
         DB::table('role_user')->delete();
         DB::table('users')->delete();
-        DB::table('roles')->delete();
-        DB::table('permissions')->delete();
-        Eloquent::reguard();
     }
-
-//    private function setFKCheckOff() {
-//        switch(config('DB_CONNECTION')) {
-//            case 'mysql':
-//                DB::statement('SET FOREIGN_KEY_CHECKS=0');
-//                break;
-//            case 'sqlite':
-//                DB::statement('PRAGMA foreign_keys = OFF');
-//                break;
-//        }
-//    }
-//
-//    private function setFKCheckOn() {
-//        switch(config('DB_CONNECTION')) {
-//            case 'mysql':
-//                DB::statement('SET FOREIGN_KEY_CHECKS=1');
-//                break;
-//            case 'sqlite':
-//                DB::statement('PRAGMA foreign_keys = ON');
-//                break;
-//        }
-//    }
 }

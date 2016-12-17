@@ -11,7 +11,7 @@ class TransactionSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('transactions')->truncate();
+        DB::table('transactions')->delete();
 
         factory(App\Transaction::class, 100)->create();
     }

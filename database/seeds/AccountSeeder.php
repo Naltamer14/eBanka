@@ -11,7 +11,7 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('accounts')->truncate();
+        DB::table('accounts')->delete();
 
         foreach (App\User::all() as $user)
         {
