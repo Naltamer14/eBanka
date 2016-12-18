@@ -68,6 +68,11 @@ class User extends Authenticatable
             return 0;
     }
 
+    public function getProfilePictureAttribute()
+    {
+        //
+    }
+
     /**
      * The model field name that will be used to look up records in the database.
      *
