@@ -12,8 +12,8 @@ class LaratrustSeeder extends Seeder
      */
     public function run()
     {
-        $this->command->info('Deleting Users, Roles and Permissions tables');
-        $this->truncateLaratrustTables();
+        $this->command->info('Deleting Users, Roles, Groups and Permissions tables');
+        $this->deleteLaratrustTables();
         
         $config = config('laratrust_seeder.role_structure');
         $userPermission = config('laratrust_seeder.permission_structure');
@@ -54,8 +54,8 @@ class LaratrustSeeder extends Seeder
 
             // Create default user for each role
             $this->command->info("Creating '{$key}' user");
-            $user = \App\User::create([
-                'name' => ucfirst($key),
+            $user = factory(App\User::class)->create([
+                'username' => ucfirst($key),
                 'email' => $key.'@app.com',
                 'password' => bcrypt('password'),
                 'remember_token' => str_random(10),
@@ -69,8 +69,8 @@ class LaratrustSeeder extends Seeder
                 foreach ($modules as $module => $value) {
                     $permissions = explode(',', $value);
                     // Create default user for each permission set
-                    $user = \App\User::create([
-                        'name' => ucfirst($key),
+                    $user = factory(App\User::class)->create([
+                        'username' => ucfirst($key),
                         'email' => $key.'@app.com',
                         'password' => bcrypt('password'),
                         'remember_token' => str_random(10),
@@ -99,14 +99,18 @@ class LaratrustSeeder extends Seeder
     }
 
     /**
-     * Truncates all the laratrust tables and the users table
+     * Deletes all the laratrust tables and the users table
      * @return    void
      */
-    public function truncateLaratrustTables()
+    public function deleteLaratrustTables()
     {
         DB::table('permission_role')->delete();
         DB::table('permission_user')->delete();
         DB::table('role_user')->delete();
+        DB::table('roles')->delete();
+        DB::table('permissions')->delete();
+        DB::table('groups')->delete();
+
         DB::table('users')->delete();
     }
 }

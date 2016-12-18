@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 
 class AccountSeeder extends Seeder
 {
+    public $amount = 60;
+
     /**
      * Run the database seeds.
      *
@@ -11,8 +13,12 @@ class AccountSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info('Deleting Accounts table...');
         DB::table('accounts')->delete();
+        $this->command->info('- Deleted.');
 
+
+        $this->command->info('Creating ' .App\User::all()->count() . ' primary accounts...');
         foreach (App\User::all() as $user)
         {
             factory(App\Account::class)->create([
@@ -21,7 +27,10 @@ class AccountSeeder extends Seeder
                 'fallback_account' => null
             ]);
         }
+        $this->command->info('- Created.');
 
-        factory(App\Account::class, 50)->create();
+        $this->command->info('Creating ' . $this->amount . ' additional accounts...');
+        factory(App\Account::class, $this->amount)->create();
+        $this->command->info('- Created.');
     }
 }
