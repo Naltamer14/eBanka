@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_number', 'name', 'surname', 'country', 'city', 'post_number', 'gender',
+        'email', 'password', 'phone_number', 'name', 'surname', 'country', 'city', 'post_number', 'gender',
     ];
 
     /**
@@ -60,6 +60,21 @@ class User extends Authenticatable
         }, 0);
     }
 
+    public function getSexAttribute()
+    {
+        if($this->attributes['gender'] == 0) {
+            return 'Male';
+        }
+        else {
+            return 'Female';
+        }
+    }
+
+    /**
+     * All available funds the user has to use
+     *
+     * @return int
+     */
     public function availableFunds()
     {
         if ($this->balance() > 0)
