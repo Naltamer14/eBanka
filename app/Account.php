@@ -13,7 +13,7 @@ class Account extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'user_id', 'type', 'limit', 'balance', 'limit_approved_until', 'fallback_account',
+        'user_id', 'name', 'card_number', 'card_approved_until', 'type', 'balance', 'limit', 'limit_approved_until', 'fallback_account',
     ];
 
     /**

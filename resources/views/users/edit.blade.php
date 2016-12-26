@@ -7,7 +7,7 @@
 
             {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->name]]) !!}
                 @include ('users._form', ['submitButtonText' => 'Posodobi'])
-                <a href="#">Spremeni geslo</a>
+                <a href="{{ action('UsersController@edit', $user) }}">Spremeni geslo</a>
             {!! Form::close() !!}
         </div>
     </div>

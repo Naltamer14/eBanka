@@ -24,6 +24,7 @@
 <footer>@yield('footer')</footer>
 <script>
     $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+    $('.iTooltip').tooltip();
 </script>
 </body>
 </html>

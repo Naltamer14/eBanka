@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     {!! Form::model($user = new \App\User, ['method' => 'POST', 'url' => '/register']) !!}
-                        @include ('users._form', ['submitButtonText' => 'Naprej'])
+                        @include ('users._register')
                     {!! Form::close() !!}
                 </div>
             </div>
