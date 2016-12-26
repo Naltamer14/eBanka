@@ -2,10 +2,11 @@
 
 $factory->define(App\Account::class, function (Faker\Generator $faker) {
 
-    $random_user_id = $faker->biasedNumberBetween(1, App\User::all()->count());
-    if(App\Account::all()->count() > 1)
+    $random_user_id = $faker->biasedNumberBetween(App\User::first()->id, (App\User::first()->id + App\User::all()->count() - 1));
+    $user = App\User::find($random_user_id);
+    if($user->accounts->count())
     {
-        $random_account_fallback = $faker->biasedNumberBetween(1, App\Account::all()->count() - 1);
+        $random_account_fallback = ($user->accounts[$faker->biasedNumberBetween(0, $user->accounts->count() - 1)])->id;
     }
     else
     {

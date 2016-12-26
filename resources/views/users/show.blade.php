@@ -1,8 +1,8 @@
 @extends('app')
 
 @section('content')
-    <h1 class="page-header">{{ $user->name }}</h1>
-    <img src="/uploads/profile_pictures/{{ $user->profile_picture }}" style="width: 150px; height:150px; border-radius:50%;">
+    <h1 class="page-header">{{ $user->name }} {{ $user->surname }}</h1>
+    <img src="{{ $user->profile_picture }}" style="width: 150px; height:150px; border-radius:50%;">
     <br><br>
     <ul>
         <li>Ime: {{ $user->name }}</li>

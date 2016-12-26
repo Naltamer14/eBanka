@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 
 class AccountSeeder extends Seeder
 {
-    public $amount = 60;
+    public $amount = 60 ;
 
     /**
      * Run the database seeds.

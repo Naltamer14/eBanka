@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password', 'phone_number', 'name', 'surname', 'country', 'city', 'post_number', 'gender',
+        'email', 'password', 'phone_number', 'name', 'surname', 'country', 'city', 'post_number', 'gender', 'profile_picture',
     ];
 
     /**
@@ -85,10 +85,10 @@ class User extends Authenticatable
 
     public function getProfilePictureAttribute()
     {
-        if(!$this->attributes['profile_picture'])
+        if(is_null($this->attributes['profile_picture']))
         {
-            if($this->attributes['gender'] == 0) { return 'default_male.jpg'; }
-            else { return 'default_female.jpg'; }
+            if($this->attributes['gender'] == 0) { return '/uploads/profile_pictures/default_male.jpg'; }
+            else { return '/uploads/profile_pictures/default_female.jpg'; }
         }
         else {
             return $this->attributes['profile_picture'];

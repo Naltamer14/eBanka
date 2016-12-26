@@ -5,17 +5,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
     $gender = $faker->boolean;
     if($gender) {
-        $name = 'female';
+        $sex = 'female';
     } else {
-        $name = 'male';
+        $sex = 'male';
     }
 
     return [
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('geslo123'),
         'phone_number' => $faker->phoneNumber,
-        'name' => $faker->name($name),
-        'surname' => $faker->name,
+        'name' => $faker->firstName($sex),
+        'surname' => $faker->lastName,
         'country' => $faker->country,
         'city' => $faker->city,
         'post_number' => $faker->postcode,

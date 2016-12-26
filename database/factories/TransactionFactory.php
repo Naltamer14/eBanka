@@ -15,7 +15,7 @@ $factory->define(App\Transaction::class, function (Faker\Generator $faker) {
     return [
         'account_id' => $random_account_id,
         'user_id'  => $random_user_id,
-        'purpose' => $faker->text(60),
+        'purpose' => $faker->realText(80),
         'amount' => $amount,
         'ip_address' => $faker->ipv4,
         'transferred_at' => $faker->dateTimeThisDecade->format('Y-m-d'),
