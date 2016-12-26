@@ -85,7 +85,14 @@ class User extends Authenticatable
 
     public function getProfilePictureAttribute()
     {
-        //
+        if(!$this->attributes['profile_picture'])
+        {
+            if($this->attributes['gender'] == 0) { return 'default_male.jpg'; }
+            else { return 'default_female.jpg'; }
+        }
+        else {
+            return $this->attributes['profile_picture'];
+        }
     }
 
     /**
