@@ -132,11 +132,19 @@ class AccountsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param User $user
+     * @param Account $account
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
-    public function destroy($id)
+    public function destroy(User $user, Account $account)
     {
-        //
+        if($user->id == $account->user->id || $user->can('accounts-delete'))
+        {
+            $account->delete();
+        }
+
+        flash('Račun ' . $account->name . ' je bil uspešno izbrisan.', 'success');
+        return redirect('/');
     }
 }

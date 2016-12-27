@@ -8,16 +8,10 @@
     <ul class="nav nav-sidebar">
         <li class="{{ isActiveRoute('users.transactions.index') }}"><a href="{!! action('TransactionsController@index', $user) !!}">Transakcije</a></li>
         <li class="{{ isActiveRoute('users.transactions.create') }}"><a href="{!! action('TransactionsController@create', $user) !!}">Naredi transakcijo</a></li>
-        @permission('transactions-read')
-            <li class="{{ isActiveRoute('transactions.all') }} list-group-item-warning"><a href="{!! action('TransactionsController@all') !!}">Vse transakcije</a></li>
-        @endpermission
+        <li class="{{ isActiveRoute('transactions.all') }} list-group-item-warning"><a href="{!! action('TransactionsController@all') !!}">Vse transakcije</a></li>
     </ul>
     <ul class="nav nav-sidebar">
-        @permission('users-read')
-            <li class="{{ isActiveRoute('users.index') }} list-group-item-warning"><a href="{!! action('UsersController@index') !!}">Vsi uporabniki</a></li>
-        @endpermission
-        @permission('accounts-read')
-            <li class="{{ isActiveRoute('accounts.all') }} list-group-item-warning"><a href="{!! action('AccountsController@all') !!}">Vsi računi</a></li>
-        @endpermission
+        <li class="{{ isActiveRoute('users.index') }} list-group-item-warning"><a href="{!! action('UsersController@index') !!}">Vsi uporabniki</a></li>
+        <li class="{{ isActiveRoute('accounts.all') }} list-group-item-warning"><a href="{!! action('AccountsController@all') !!}">Vsi računi</a></li>
     </ul>
 </div>

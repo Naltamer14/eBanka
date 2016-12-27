@@ -11,5 +11,7 @@
         <li>Vsota: {!! App\Account::formatBalance($transaction->amount) !!}</li>
         <li>Datum: {{ $transaction->transferred_at }}</li>
     </ul>
-    <a href="{!! action('TransactionsController@edit', ['user' => $user, 'transaction' =>$transaction]) !!}" class="btn btn-primary">Uredi transakcijo</a>
+    @permission('transactions-update')
+        <a href="{!! action('TransactionsController@edit', ['user' => $user, 'transaction' =>$transaction]) !!}" class="btn btn-primary">Uredi transakcijo</a>
+    @endpermission
 @endsection

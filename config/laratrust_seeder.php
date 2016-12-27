@@ -3,16 +3,21 @@
 return [
     'role_structure' => [
         'superuser' => [
-            'users' => 'c,r,u,d',
-            'transactions' => 'c,r,u,d'
+            'users' => 'r,u,d',
+            'transactions' => 'c,r,u,d',
+            'accounts' => 'c,r,u,d',
         ],
         'administrator' => [
-            'users' => 'c,r,u,d',
-            'transactions' => 'c,r'
+            'users' => 'r,u',
+            'transactions' => 'c,r,u',
+            'accounts' => 'c,r,u,d',
+        ],
+        'moderator' => [
+            'users' => 'r',
+            'transactions' => 'r',
+            'accounts' => 'c,r,u',
         ],
         'user' => [
-            'users' => 'c,r,u,d',
-            'transactions' => 'c'
         ],
     ],
     'permission_structure' => [
