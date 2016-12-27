@@ -9,4 +9,6 @@
             </div>
         @endforeach
     </div>
-    {!! $groupMembers->appends(Request::query())->links() !!}
+    @if(method_exists($groupMembers, 'appends'))
+        {!! $groupMembers->appends(Request::query())->links() !!}
+    @endif

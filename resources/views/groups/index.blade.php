@@ -8,6 +8,7 @@
             @foreach ($groups as $group)
                 <a class="list-group-item list-group-item-action" href="{{ action('GroupsController@show', [$user, $group]) }}">
                     <h4 class="list-group-item-heading">Skupina {{ $group->name }}</h4>
+                    <span class="list-group-item-text">Število članov: {{ $group->users->count() }}</span>
                 </a>
             @endforeach
         </div>

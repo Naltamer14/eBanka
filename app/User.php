@@ -4,8 +4,6 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Auth;
-use App\Account;
 use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable

@@ -7,6 +7,7 @@ use App\Http\Requests\AccountRequest;
 use App\Role;
 use App\User;
 use Auth;
+use Barryvdh\Reflection\DocBlock\Type\Collection;
 
 class AccountsController extends Controller
 {
@@ -27,7 +28,15 @@ class AccountsController extends Controller
      */
     public function index(User $user)
     {
-        $groupMembers = User::paginate(4, null, 'members');
+        if(!$user->groups->isEmpty())
+        {
+            $groupMembers = $user->groups()->first()->users()->paginate(4, ['*'], 'members');
+        }
+        else
+        {
+            $groupMembers = collect([User::find($user->id)]);
+        }
+
         $accounts = $user->accounts()->paginate(10, null, 'accounts');
 
         return view('accounts.index')

@@ -3,10 +3,9 @@
     {!! Form::label('name', '*Ime:') !!}
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
-
 <div class="form-group">
-    {!! Form::label('members', 'Uporabniki:') !!}
-    {!! Form::select('members', $users, null, ['id' => 'members','class' => 'form-control']) !!}
+    {!! Form::label('group', 'Uporabniki:') !!}
+    {!! Form::select('group', $users, $group->users->pluck('id')->all(), ['id' => 'group','class' => 'form-control']) !!}
 </div>
 
 <div class="form-group">
@@ -17,7 +16,7 @@
 
 @section('footer')
     <script>
-        $('#members').select2({
+        $('#group').select2({
             placeholder: 'Izberi tip računa',
             multiple: true
         });
