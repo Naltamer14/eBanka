@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
-                    {!! Form::model($user = new \App\User, ['method' => 'POST', 'url' => '/register', 'files' => true]) !!}
+                    {!! Form::model($user = new \App\User, ['method' => 'POST', 'url' => '/register']) !!}
                         @include ('users._form', ['submitButtonText' => 'Registriraj'])
                     {!! Form::close() !!}
                 </div>

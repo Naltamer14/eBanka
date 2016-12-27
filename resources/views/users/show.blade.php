@@ -9,7 +9,7 @@
         </div>
 
         <div class="col-lg-10">
-            <div class="tab-content">
+            <div class="tab-content" id="tabs">
                 {{-- Basic information --}}
                 <div role="tabpanel" class="tab-pane active" id="basicinfo">
                     <h4>Splošne informacije:</h4>
@@ -39,12 +39,35 @@
                 </div>
                 {{-- Edit user --}}
                 <div role="tabpanel" class="tab-pane" id="edituser">
-                    {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user->name]]) !!}
-                    @include ('users._form', ['submitButtonText' => 'Posodobi'])
-                    <a href="{{ action('UsersController@edit', $user) }}">Spremeni geslo</a>
+                    {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user]]) !!}
+                    @include ('users._form', ['submitButtonText' => 'Posodobi', 'nopassword' => true])
+                    {!! Form::close() !!}
+                </div>
+                {{-- Change password --}}
+                <div role="tabpanel" class="tab-pane" id="changepassword">
+                    {!! Form::model($user, ['method' => 'PATCH', 'action' => ['UsersController@update', $user]]) !!}
+                        @include('users._password-input')
+                    <br>
+                    <div class="form-group">
+                        {!! Form::submit('Spremeni', ['class' => 'btn btn-primary form-control']) !!}
+                    </div>
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    @if($errors->has('password'))
+        <script>
+            $('#changepassword_link').tab('show');
+        </script>
+    @elseif($errors->any())
+        <script>
+            $('#edituser_link').tab('show');
+        </script>
+    @endif
+    <script>
+    </script>
 @endsection

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PasswordRequest;
 use App\Http\Requests\UserRequest;
+use Hash;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Validator;
 use Illuminate\Support\Facades\Input;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class UsersController extends Controller
 {
@@ -58,20 +62,47 @@ class UsersController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a user's details
      *
      * @param User $user
-     * @param UserRequest|Request $request
-     * @return \Illuminate\Http\Response
-     * @internal param $name
-     * @internal param int $id
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(User $user, UserRequest $request)
+    public function update(User $user, Request $request)
     {
-        $user->update($request->all());
-        flash('Profil ' . $user->name . ' je bil uspešno posodobljen.', 'success');
+        if(!is_null($request->get('password'))) // Update password
+        {
+            $validator = Validator::make($request->all(), [
+                'password' => 'required|min:6|confirmed',
+            ]);
+            $validator->validate();
 
-        return redirect('users');
+            $user->update($request->all());
+
+            flash('Geslo je bilo uspešno posodobljeno.', 'success');
+            return redirect('users')
+                ->withErrors($validator, 'UpdatePassword');
+        }
+        else // Update profile
+        {
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|unique:users' . ',email,' . $user->id,
+                'name' => 'required',
+                'surname' => 'required',
+                'gender' => 'required|boolean',
+                'country' => 'required',
+                'city' => 'required',
+                'post_number' => 'required',
+                'phone_number' => 'required|unique:users' . ',phone_number,' . $user->id,
+            ]);
+            $validator->validate();
+
+            $user->update($request->all());
+
+            flash('Profil ' . $user->name . ' je bil uspešno posodobljen.', 'success');
+            return redirect('users')
+                ->withErrors($validator, 'UpdateProfile');
+        }
     }
 
     /**

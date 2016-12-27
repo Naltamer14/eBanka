@@ -18,9 +18,10 @@
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{!! action('UsersController@show', Auth::user()) !!}"><i class="padding fa fa-user" aria-hidden="true"></i>Profil</a></li>
+                        <li><a href="{!! action('UsersController@show', Auth::user()) !!}"><i class="padding fa fa-user" aria-hidden="true"></i> Profil</a></li>
+                        <li><a href=""><i class="fa fa-cog" aria-hidden="true"></i> Nastavitve</a></li>
                         <li>
-                            <a href="{!! url('/logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="padding fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+                            <a href="{!! url('/logout') !!}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="padding fa fa-sign-out" aria-hidden="true"></i> Izpis</a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                         </li>
                     </ul>
@@ -31,7 +32,6 @@
                     {{--<ul class="dropdown-menu" role="menu">--}}
                         {{--<li><a href="{!! action('UsersController@show', Auth::user()) !!}"> <span class="badge">7</span></a></li>--}}
                     {{--</ul>--}}
-                <li class="disabled"><a href="#">Nastavitve</a></li>
                 <li class="disabled"><a href="#">Pomoč</a></li>
             </ul>
             <form class="navbar-form navbar-right">
