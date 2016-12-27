@@ -28,7 +28,7 @@
         <li>Transakcije:
             <ul>
                 @foreach($account->transactions as $transaction)
-                    <li><a href="{!! action('TransactionsController@show', [$transaction->user, $transaction]) !!}"  class="iTooltip" data-toggle="tooltip" title="{{ $transaction->purpose }}">Transaction {{ $transaction->id }}</a></li>
+                    <li><a href="{!! action('TransactionsController@show', [$transaction->user, $transaction]) !!}" class="iTooltip" data-toggle="tooltip" title="{{ $transaction->purpose }}">Transaction {{ $transaction->id }}</a></li>
                 @endforeach
             </ul>
         </li>

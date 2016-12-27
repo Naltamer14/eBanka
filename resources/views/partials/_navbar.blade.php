@@ -14,7 +14,7 @@
                 <li><a href="{{ action('AccountsController@index', Auth::user()) }}">Pregled</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="position: relative;padding-left: 50px;">
-                        <img src="{{ $user->profile_picture }}" style="width: 32px; height:32px; border-radius:50%; position: absolute; top: 10px; left:10px;" class="img-responsive">
+                        <img src="{{ Auth::user()->profile_picture }}" style="width: 32px; height:32px; border-radius:50%; position: absolute; top: 10px; left:10px;" class="img-responsive">
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">

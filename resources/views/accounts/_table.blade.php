@@ -16,7 +16,7 @@
                         <td><a href="{{ action('AccountsController@show', [$user, $account]) }}">{{ $account->name }}</a></td>
                         <td>{{ ($account->user()->first())->name }}</td>
                         <td>{{ $account->account_type }}</td>
-                        <td><a href="">{{ $account->card_number }}</a></td>
+                        <td><a href="" class="iTooltip" data-toggle="tooltip" title="Expiration date: {{ $account->card_approved_until }}">{{ $account->card_number }}</a></td>
                         <td>{!! App\Account::formatBalance($account->balance) !!}</td>
                     </tr>
                 </tbody>
