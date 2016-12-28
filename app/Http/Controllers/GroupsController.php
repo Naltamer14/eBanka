@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Group;
 use App\Http\Requests\AccountRequest;
+use App\Http\Requests\GroupRequest;
 use App\Permission;
 use App\Role;
 use App\User;
@@ -78,18 +79,20 @@ class GroupsController extends Controller
     /**
      * Store a new account.
      * @param User $user
-     * @param AccountRequest|FormRequest|Request|\Request $request
+     * @param AccountRequest|GroupRequest|FormRequest|Request|\Request $request
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function store(User $user, Request $request)
+    public function store(User $user, GroupRequest $request)
     {
         $group = Group::create($request->all());
-        // Attach the user
-        $role = Role::where('name', 'user')->first();
-        $user->attachRole($role, $group);
-        // Attach the accounts
         $group->accounts()->sync($request->input('accounts'));
-        $group->users()->sync($request->input('users'));
+
+        // Sync users
+        $users = array_map(function($value) {
+            return ['user_id' => $value, 'role_id' => Role::where('name', 'user')->first()->id];
+        }, $request->input('users'));
+
+        $group->users()->sync($users);
 
         flash('Skupina ' . $group->name . ' je bila uspešno ustvarjena.', 'success');
         return redirect('/');
@@ -123,7 +126,7 @@ class GroupsController extends Controller
     public function edit(User $user, Group $group)
     {
         $accounts = $group->users->mapWithKeys(function ($el) {
-            return [$el->name => ($el->accounts()->pluck('name', 'id')->toArray())];
+            return [($el->name . ' (' . $el->email . ')') => ($el->accounts()->pluck('name', 'id')->toArray())];
         }, collect());
         $accounts = $accounts->all();
         $users = User::pluck('name', 'id');
@@ -140,17 +143,22 @@ class GroupsController extends Controller
      *
      * @param User $user
      * @param Group $group
-     * @param Request|AccountRequest|FormRequest|\Illuminate\Http\Request|\Request $request
+     * @param AccountRequest|GroupRequest|FormRequest|Request|\Request $request
      * @return \Illuminate\Http\Response
      * @internal param Account $account
      * @internal param int $id
      */
-    public function update(User $user, Group $group, Request $request)
+    public function update(User $user, Group $group, GroupRequest $request)
     {
         $group->update($request->all());
         $group->accounts()->sync($request->input('accounts'));
-        $group->users()->sync([1 => [1, 1]]);
-//        $group->users()->sync($request->input('users'));
+
+        // Sync users
+        $users = array_map(function($value) {
+            return ['user_id' => $value, 'role_id' => Role::where('name', 'user')->first()->id];
+        }, $request->input('users'));
+
+        $group->users()->sync($users);
 
         flash('Skupina ' . $group->name . ' je bila uspešno posodobljena.', 'success');
 
