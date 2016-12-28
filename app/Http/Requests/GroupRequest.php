@@ -25,9 +25,8 @@ class GroupRequest extends FormRequest
     {
         $update = ($this->route('group')) ? ',name,' . $this->route('group')->id : '';
         return [
-            'name' => 'required|unique:groups' . $update,
+            'name' => 'required|min:4|unique:groups' . $update,
             'users' => 'required',
-            'accounts' => 'required',
         ];
     }
 }

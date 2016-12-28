@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Laratrust\LaratrustGroup;
 
 class Group extends LaratrustGroup
@@ -27,6 +28,15 @@ class Group extends LaratrustGroup
 
     public function getUserListAttribute()
     {
-        return $this->users()->pluck('id')->all();
+        // Check if group exists or is about to be created
+        if(is_null($this->id))
+        {
+            // If group is about to be created, set the route's user as the default member
+            return \Route::current()->user->id;
+        }
+        else
+        {
+            return $this->users()->pluck('id')->all();
+        }
     }
 }

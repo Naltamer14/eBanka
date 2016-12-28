@@ -16,7 +16,7 @@
             <li>Računi:
                 <ul>
                     @foreach($group->accounts as $account)
-                        <li>{{ $account->name }}</li>
+                        <li><a href="{!! action('AccountsController@show', [$account->user, $account]) !!}">{{ $account->name }}</a></li>
                     @endforeach
                 </ul>
             </li>

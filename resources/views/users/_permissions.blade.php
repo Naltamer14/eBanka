@@ -3,7 +3,7 @@
     <li>Skupine:
         <ul>
             @foreach($user->groups as $group)
-                <li><strong>{{ $group->name }}</strong>
+                <li><a href="{!! action('GroupsController@show', [$user, $group]) !!}">{{ $group->name }}</a>
                     <br>
                     - Funkcija: {{ $group->roles->first()->name }}
                 </li>

@@ -85,7 +85,14 @@ class GroupsController extends Controller
     public function store(User $user, GroupRequest $request)
     {
         $group = Group::create($request->all());
-        $group->accounts()->sync($request->input('accounts'));
+        if(is_null($request->input('accounts')))
+        {
+            $group->accounts()->sync([]);
+        }
+        else
+        {
+            $group->accounts()->sync($request->input('accounts'));
+        }
 
         // Sync users
         $users = array_map(function($value) {
@@ -151,7 +158,14 @@ class GroupsController extends Controller
     public function update(User $user, Group $group, GroupRequest $request)
     {
         $group->update($request->all());
-        $group->accounts()->sync($request->input('accounts'));
+        if(is_null($request->input('accounts')))
+        {
+            $group->accounts()->sync([]);
+        }
+        else
+        {
+            $group->accounts()->sync($request->input('accounts'));
+        }
 
         // Sync users
         $users = array_map(function($value) {
