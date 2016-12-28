@@ -4,8 +4,12 @@
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 <div class="form-group">
-    {!! Form::label('group', 'Uporabniki:') !!}
-    {!! Form::select('group', $users, $group->users->pluck('id')->all(), ['id' => 'group','class' => 'form-control']) !!}
+    {!! Form::label('users', 'Uporabniki:') !!}
+    {!! Form::select('users[]', $users, $group->user_list, ['id' => 'users','class' => 'form-control', 'multiple']) !!}
+</div>
+<div class="form-group">
+    {!! Form::label('accounts', 'Računi:') !!}
+    {!! Form::select('accounts[]', $accounts, $group->account_list, ['id' => 'accounts','class' => 'form-control', 'multiple']) !!}
 </div>
 
 <div class="form-group">
@@ -16,9 +20,11 @@
 
 @section('footer')
     <script>
-        $('#group').select2({
+        $('#accounts').select2({
             placeholder: 'Izberi tip računa',
-            multiple: true
+        });
+        $('#users').select2({
+            placeholder: 'Izberi uporabnike',
         });
     </script>
 @endsection

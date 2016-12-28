@@ -16,14 +16,6 @@ class Account extends Model
         'user_id', 'name', 'card_number', 'card_approved_until', 'type', 'balance', 'limit', 'limit_approved_until', 'fallback_account',
     ];
 
-    /**
-     * Get the account's owner
-     * @return User
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
 
     /**
      * Get the account's group members
@@ -42,6 +34,16 @@ class Account extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Get the groups associated with the account
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group')->withTimestamps();
     }
 
     /**

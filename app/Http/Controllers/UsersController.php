@@ -65,7 +65,7 @@ class UsersController extends Controller
             $user->update($request->all());
 
             flash('Geslo je bilo uspešno posodobljeno.', 'success');
-            return redirect('users')
+            return redirect('/')
                 ->withErrors($validator, 'UpdatePassword');
         }
         else // Update profile
@@ -85,7 +85,7 @@ class UsersController extends Controller
             $user->update($request->all());
 
             flash('Profil ' . $user->name . ' je bil uspešno posodobljen.', 'success');
-            return redirect('users')
+            return redirect('/')
                 ->withErrors($validator, 'UpdateProfile');
         }
     }

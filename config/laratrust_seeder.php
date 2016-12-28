@@ -23,8 +23,6 @@ return [
         'user' => [
         ],
     ],
-    'permission_structure' => [
-    ],
     'permissions_map' => [
         'c' => 'create',
         'r' => 'read',

@@ -1,23 +1,12 @@
-@if(!$user->roles->isEmpty() || !$user->permissions->isEmpty()) <hr> @endif
-@unless($user->roles->isEmpty())
-    <li>Funkcija:
-        <ul>
-            @foreach($user->roles as $role)
-                <li><strong>{{ $role->display_name }}</strong></li>
-                Pravice:
-                <ul>
-                    @foreach($role->permissions as $permission)
-                        <li>{{ $permission->display_name }}</li>
-                    @endforeach
-                </ul>
-            @endforeach
-        </ul></li>
-@endunless
+<li>Funkcija: <strong>{{ $user->roles->first()->display_name }}</strong></li>
 @unless($user->groups->isEmpty())
     <li>Skupine:
         <ul>
             @foreach($user->groups as $group)
-                <li>{{ $group->display_name }}</li>
+                <li><strong>{{ $group->name }}</strong>
+                    <br>
+                    - Funkcija: {{ $group->roles->first()->name }}
+                </li>
             @endforeach
         </ul></li>
 @endunless

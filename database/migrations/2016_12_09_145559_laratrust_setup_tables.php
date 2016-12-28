@@ -29,6 +29,18 @@ class LaratrustSetupTables extends Migration
             $table->timestamps();
         });
 
+        // Create table for storing accounts inside groups
+        Schema::create('account_group', function (Blueprint $table) {
+            $table->integer('account_id')->unsigned()->index();
+            $table->integer('group_id')->unsigned()->index();
+            $table->timestamps();
+
+            $table->foreign('account_id')->references('id')->on('accounts')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')
+                ->onUpdate('cascade')->onDelete('cascade');
+        });
+
         // Create table for associating roles to users (Many-to-Many)
         Schema::create('role_user', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
@@ -89,6 +101,7 @@ class LaratrustSetupTables extends Migration
      */
     public function down()
     {
+        Schema::drop('account_group');
         Schema::drop('permission_user');
         Schema::drop('permission_role');
         Schema::drop('permissions');

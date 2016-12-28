@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Account;
 use App\Group;
 use App\Http\Requests\AccountRequest;
+use App\Permission;
 use App\Role;
 use App\User;
 use Auth;
@@ -65,9 +66,11 @@ class GroupsController extends Controller
      */
     public function create(User $user)
     {
-        $users = User::where('id', '!=', $user->id)->pluck('name', 'id');
+        $accounts = $user->accounts()->pluck('name', 'id');
+        $users = User::pluck('name', 'id');
 
         return view('groups.create')
+            ->with('accounts', $accounts)
             ->with('users', $users)
             ->with('user', $user);
     }
@@ -81,8 +84,13 @@ class GroupsController extends Controller
     public function store(User $user, Request $request)
     {
         $group = Group::create($request->all());
+        // Attach the user
         $role = Role::where('name', 'user')->first();
         $user->attachRole($role, $group);
+        // Attach the accounts
+        $group->accounts()->sync($request->input('accounts'));
+        $group->users()->sync($request->input('users'));
+
         flash('Skupina ' . $group->name . ' je bila uspešno ustvarjena.', 'success');
         return redirect('/');
     }
@@ -114,9 +122,15 @@ class GroupsController extends Controller
      */
     public function edit(User $user, Group $group)
     {
-        $users = User::all()->pluck('name', 'id');
+        $accounts = $group->users->mapWithKeys(function ($el) {
+            return [$el->name => ($el->accounts()->pluck('name', 'id')->toArray())];
+        }, collect());
+        $accounts = $accounts->all();
+        $users = User::pluck('name', 'id');
+
         return view('groups.edit')
             ->with('group', $group)
+            ->with('accounts', $accounts)
             ->with('users', $users)
             ->with('user', $user);
     }
@@ -134,6 +148,10 @@ class GroupsController extends Controller
     public function update(User $user, Group $group, Request $request)
     {
         $group->update($request->all());
+        $group->accounts()->sync($request->input('accounts'));
+        $group->users()->sync([1 => [1, 1]]);
+//        $group->users()->sync($request->input('users'));
+
         flash('Skupina ' . $group->name . ' je bila uspešno posodobljena.', 'success');
 
         return redirect('/');

@@ -31,8 +31,8 @@
                         <li>Telefonska številka: {{ $user->phone_number }}</li>
                         <li>Zadnje posodobljen: {{ $user->updated_at }}</li>
                         <li>Registriran od: {{ $user->created_at->format('Y-m-d') }}</li>
-
-                    @include('users._permissions')
+                        <hr>
+                        @include('users._permissions')
                     </ul>
                 </div>
                 {{-- Past logins --}}
