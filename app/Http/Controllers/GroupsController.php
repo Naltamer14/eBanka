@@ -20,6 +20,11 @@ class GroupsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:groups-read')->only('all');
+        $this->middleware('sameUserOrPermission:groups-create')->only(['create', 'store']);
+        $this->middleware('sameUserOrPermission:groups-read')->only(['index', 'show']);
+        $this->middleware('sameUserOrPermission:groups-update')->only(['edit', 'update']);
+        $this->middleware('sameUserOrPermission:groups-delete')->only('destroy');
     }
 
     /**

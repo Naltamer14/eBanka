@@ -39,17 +39,13 @@
 
     </ul>
     <div class="row">
-        @permission('accounts-update')
         <div class="col-lg-1">
             <a href="{!! action('AccountsController@edit', ['user' => $user, 'account' => $account]) !!}" class="btn btn-primary">Uredi račun</a>
         </div>
-        @endpermission
-        @permission('accounts-delete')
         <div class="col-lg-1">
             {!! Form::open(['method'  => 'delete', 'action' => ['AccountsController@destroy', $user, $account]]) !!}
                 {!! Form::submit('Izbriši račun', ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
-        @endpermission
     </div>
 @endsection

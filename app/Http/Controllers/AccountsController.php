@@ -18,6 +18,12 @@ class AccountsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkAccountOwnership')->except(['index', 'all', 'create', 'store']);
+        $this->middleware('permission:accounts-read')->only('all');
+        $this->middleware('sameUserOrPermission:accounts-create')->only(['create', 'store']);
+        $this->middleware('sameUserOrPermission:accounts-read')->only(['index', 'show']);
+        $this->middleware('sameUserOrPermission:accounts-update')->only(['edit', 'update']);
+        $this->middleware('sameUserOrPermission:accounts-delete')->only('destroy');
     }
 
     /**
@@ -148,11 +154,6 @@ class AccountsController extends Controller
      */
     public function destroy(User $user, Account $account)
     {
-        if($user->id == $account->user->id || $user->can('accounts-delete'))
-        {
-            $account->delete();
-        }
-
         flash('Račun ' . $account->name . ' je bil uspešno izbrisan.', 'success');
         return redirect('/');
     }

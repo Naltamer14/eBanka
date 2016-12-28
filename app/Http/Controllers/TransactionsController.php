@@ -17,6 +17,12 @@ class TransactionsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkTransactionOwnership')->except(['index', 'all', 'create', 'store']);
+        $this->middleware('permission:transactions-read')->only('all');
+        $this->middleware('sameUserOrPermission:transactions-create')->only(['create', 'store']);
+        $this->middleware('sameUserOrPermission:transactions-read')->only(['index', 'show']);
+        $this->middleware('sameUserOrPermission:transactions-update')->only(['edit', 'update']);
+        $this->middleware('sameUserOrPermission:transactions-delete')->only('destroy');
     }
 
     /**

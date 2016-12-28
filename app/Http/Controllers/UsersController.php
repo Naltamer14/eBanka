@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PasswordRequest;
-use App\Http\Requests\UserRequest;
-use Hash;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
 use Validator;
-use Illuminate\Support\Facades\Input;
-use Mockery\Generator\StringManipulation\Pass\Pass;
 
 class UsersController extends Controller
 {
@@ -20,6 +15,9 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('permission:users-read')->only('index');
+        $this->middleware('sameUserOrPermission:users-read')->only('show');
+        $this->middleware('sameUserOrPermission:users-update')->only('update');
     }
 
     /**
@@ -46,19 +44,6 @@ class UsersController extends Controller
     public function show(User $user)
     {
         return view('users.show')->with('user', $user);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @internal param $name
-     * @internal param int $id
-     */
-    public function edit(User $user)
-    {
-        return view('users.edit')->with('user', $user);
     }
 
     /**
