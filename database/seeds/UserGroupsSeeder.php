@@ -32,11 +32,13 @@ class UserGroupsSeeder extends Seeder
             {
                 $group = Group::find(random_int(Group::first()->id, (Group::first()->id + Group::all()->count() - 1)));
             } while($group->users->isEmpty());
-            
+
             $user = $group->users->random();
             $account = $user->accounts->random();
-
-            $group->accounts()->attach($account);
+            if(!$group->accounts->contains($account->id))
+            {
+                $group->accounts()->attach($account);
+            }
         }
         $this->command->info('- Assigned.');
     }
