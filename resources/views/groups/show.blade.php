@@ -3,16 +3,19 @@
 @section('content')
     <h1 class="page-header">{{ $group->name }}</h1>
     <ul>
-        @unless(empty($group->users))
-        <li>Uporabniki:
-            <ul>
-                @foreach($group->users as $gUser)
-                    <li>{{ $gUser->name }}</li>
-                @endforeach
-            </ul>
-        </li>
+        @unless(!$group->description)
+            <li>{{ $group->description }}</li>
         @endunless
-        @unless(empty($group->accounts))
+        @unless(!$group->users)
+            <li>Uporabniki:
+                <ul>
+                    @foreach($group->users as $gUser)
+                        <li>{{ $gUser->name }}</li>
+                    @endforeach
+                </ul>
+            </li>
+        @endunless
+        @unless(!$group->accounts)
             <li>Računi:
                 <ul>
                     @foreach($group->accounts as $account)

@@ -109,7 +109,6 @@ class LaratrustSeeder extends Seeder
         DB::table('role_user')->delete();
         DB::table('roles')->delete();
         DB::table('permissions')->delete();
-        DB::table('groups')->delete();
 
         DB::table('users')->delete();
     }
