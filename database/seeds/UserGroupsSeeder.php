@@ -28,7 +28,11 @@ class UserGroupsSeeder extends Seeder
         $this->command->info('Assigning ' . 80 . ' accounts to groups...');
         foreach (range(0, 80) as $i)
         {
-            $group = Group::find(random_int(Group::first()->id, (Group::first()->id + Group::all()->count() - 1)));
+            do
+            {
+                $group = Group::find(random_int(Group::first()->id, (Group::first()->id + Group::all()->count() - 1)));
+            } while($group->users->isEmpty());
+            
             $user = $group->users->random();
             $account = $user->accounts->random();
 
