@@ -139,7 +139,7 @@ class AccountsController extends Controller
     public function update(User $user, Account $account, AccountRequest $request)
     {
         $account->update($request->all());
-        flash('Račun ' . $account->name . ' je bil uspešno posodobljen.', 'success');
+        flash("Račun '" . $account->name . "' je bil uspešno posodobljen.", 'success');
 
         return redirect('/');
     }
@@ -154,7 +154,8 @@ class AccountsController extends Controller
      */
     public function destroy(User $user, Account $account)
     {
-        flash('Račun ' . $account->name . ' je bil uspešno izbrisan.', 'success');
+        $account->delete();
+        flash("Račun '" . $account->name . "' je bil uspešno izbrisan.", 'success');
         return redirect('/');
     }
 }

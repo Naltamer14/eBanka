@@ -23,52 +23,48 @@ class GroupsController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('permission:groups-read')->only('all');
-        $this->middleware('sameUserOrPermission:groups-create')->only(['create', 'store']);
-        $this->middleware('sameUserOrPermission:groups-read')->only(['index', 'show']);
-        $this->middleware('sameUserOrPermission:groups-update')->only(['edit', 'update']);
-        $this->middleware('sameUserOrPermission:groups-delete')->only('destroy');
     }
 
     /**
      * Display a listing of the resource.
-     *
      * @param User $user
      * @return \Illuminate\View\View
+     * @internal param User $user
      */
     public function index(User $user)
     {
-        $groups = $user->groups()->paginate(10);
+        if ($user->exists) {
+            $groups = $user->groups()->paginate(10);
 
-        return view('groups.index')
-            ->with('groups', $groups)
-            ->with('user', $user);
-    }
+            return view('groups.index')
+                ->with('groups', $groups)
+                ->with('user', $user);
+        } else {
+            $groups = Group::paginate(30);
+            $users = User::all();
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function all()
-    {
-        $groups = Group::paginate(30);
-
-        return view('groups.index')
-            ->with('groups', $groups)
-            ->with('user', Auth::user());
+            return view('groups.index')
+                ->with('groups', $groups)
+                ->with('user', Auth::user())
+                ->with('users', $users);
+        }
     }
 
     /**
      * Show the form for creating a new resource.
-     *
      * @param User $user
      * @return \Illuminate\View\View
+     * @internal param User $user
+     * @internal param User $user
      */
     public function create(User $user)
     {
+        if ($user->exists) {
+            $user = Auth::user();
+        }
         $accounts = $user->accounts()->pluck('name', 'id');
         $users = User::pluck('name', 'id');
+
 
         return view('groups.create')
             ->with('accounts', $accounts)
@@ -78,11 +74,11 @@ class GroupsController extends Controller
 
     /**
      * Store a new account.
-     * @param User $user
      * @param AccountRequest|GroupRequest|FormRequest|Request|\Request $request
      * @return \Illuminate\Database\Eloquent\Model
+     * @internal param User $user
      */
-    public function store(User $user, GroupRequest $request)
+    public function store(GroupRequest $request)
     {
         $group = Group::create($request->all());
         if(is_null($request->input('accounts')))
@@ -101,36 +97,38 @@ class GroupsController extends Controller
 
         $group->users()->sync($users);
 
-        flash('Skupina ' . $group->name . ' je bila uspešno ustvarjena.', 'success');
+        flash("Skupina '" . $group->name . "' je bila uspešno ustvarjena.", 'success');
         return redirect('/');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param User $user
      * @param Group $group
      * @return \Illuminate\View\View
+     * @internal param User $user
+     * @internal param User $user
      * @internal param Account $account
      * @internal param int $id
      */
-    public function show(User $user, Group $group)
+    public function show(Group $group)
     {
         return view('groups.show')
             ->with('group', $group)
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param User $user
      * @param Group $group
      * @return \Illuminate\View\View
+     * @internal param User $user
+     * @internal param User $user
      * @internal param Account $account
      * @internal param int $id
      */
-    public function edit(User $user, Group $group)
+    public function edit(Group $group)
     {
         $accounts = $group->users->mapWithKeys(function ($el) {
             return [($el->name . ' (' . $el->email . ')') => ($el->accounts()->pluck('name', 'id')->toArray())];
@@ -142,20 +140,20 @@ class GroupsController extends Controller
             ->with('group', $group)
             ->with('accounts', $accounts)
             ->with('users', $users)
-            ->with('user', $user);
+            ->with('user', Auth::user());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param User $user
      * @param Group $group
      * @param AccountRequest|GroupRequest|FormRequest|Request|\Request $request
      * @return \Illuminate\Http\Response
+     * @internal param User $user
      * @internal param Account $account
      * @internal param int $id
      */
-    public function update(User $user, Group $group, GroupRequest $request)
+    public function update(Group $group, GroupRequest $request)
     {
         $group->update($request->all());
         if(is_null($request->input('accounts')))
@@ -174,7 +172,7 @@ class GroupsController extends Controller
 
         $group->users()->sync($users);
 
-        flash('Skupina ' . $group->name . ' je bila uspešno posodobljena.', 'success');
+        flash("Skupina '" . $group->name . "' je bila uspešno posodobljena.", 'success');
 
         return redirect('/');
     }
@@ -183,11 +181,16 @@ class GroupsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param User $user
-     * @param Account $account
+     * @param Group $group
      * @return \Illuminate\Http\Response
+     * @internal param User $user
+     * @internal param Account $account
      * @internal param int $id
      */
-    public function destroy(User $user, Account $account)
+    public function destroy(User $user, Group $group)
     {
+        $group->delete();
+        flash("Skupina '" . $group->name . "' je bila uspešno izbrisana.", 'success');
+        return redirect('/');
     }
 }

@@ -31,8 +31,13 @@ class Group extends LaratrustGroup
         // Check if group exists or is about to be created
         if(is_null($this->id))
         {
-            // If group is about to be created, set the route's user as the default member
-            return \Route::current()->user->id;
+            // Check if route has a user
+            if(\Route::current()->user) {
+                // If group is about to be created, set the route's user as the default member
+                return \Route::current()->user->id;
+            } else {
+                return null;
+            }
         }
         else
         {

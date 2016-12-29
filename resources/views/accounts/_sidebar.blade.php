@@ -1,18 +1,21 @@
 <div class="col-sm-2 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        <li class="{{ isActiveRoute('users.accounts.index') }}"><a href="{{ action('AccountsController@index', $user) }}">Pregled <span class="sr-only">(current)</span></a></li>
+        <li class="{{ isActiveRoute('users.accounts.index') }}"><a href="{{ action('AccountsController@index', ($user->exists) ? $user : Auth::user()) }}">Pregled <span class="sr-only">(current)</span></a></li>
         <hr>
-        <li class="{{ isActiveRoute('users.transactions.index') }}"><a href="{!! action('TransactionsController@index', $user) !!}">Transakcije</a></li>
-        <li class="{{ isActiveRoute('users.transactions.create') }}"><a href="{!! action('TransactionsController@create', $user) !!}">Naredi transakcijo</a></li>
+        <li class="{{ isActiveRoute('users.transactions.index') }}"><a href="{!! action('TransactionsController@index', ($user->exists) ? $user : Auth::user()) !!}">Transakcije</a></li>
+        <li class="{{ isActiveRoute('users.transactions.create') }}"><a href="{!! action('TransactionsController@create', ($user->exists) ? $user : Auth::user()) !!}">Naredi transakcijo</a></li>
         @permission('transactions-read')
         <li class="{{ isActiveRoute('transactions.all') }} list-group-item-warning"><a href="{!! action('TransactionsController@all') !!}">Vse transakcije</a></li>
         @endpermission
     </ul>
     <ul class="nav nav-sidebar">
-        <li class="{{ isActiveRoute('users.groups.index') }}"><a href="{!! action('GroupsController@index', $user) !!}">Skupine</a></li>
-        <li class="{{ isActiveRoute('users.groups.create') }}"><a href="{!! action('GroupsController@create', $user) !!}">Naredi Skupino</a></li>
+        <li class="{{ isActiveRoute('users.groups.index') }}">{!! link_to_route('users.groups.index', 'Skupine', ($user->exists) ? $user : Auth::user()) !!}</li>
+        <li class="{{ isActiveRoute('users.groups.create') }}">{!! link_to_route('users.groups.create', 'Naredi skupino', ($user->exists) ? $user : Auth::user()) !!}</li>
         @permission('groups-read')
-            <li class="{{ isActiveRoute('groups.all') }} list-group-item-warning"><a href="{!! action('GroupsController@all') !!}">Vse skupine</a></li>
+            <li class="{{ isActiveRoute('groups.index') }} list-group-item-warning">{!! link_to_route('groups.index', 'Vse skupine') !!}</li>
+        @endpermission
+        @permission('groups-create')
+            <li class="{{ isActiveRoute('groups.create') }} list-group-item-warning">{!! link_to_route('groups.create', 'Naredi skupino') !!}</li>
         @endpermission
     </ul>
     <hr>

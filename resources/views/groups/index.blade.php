@@ -6,7 +6,7 @@
     @if (!empty($groups->items()))
         <div class="list-group">
             @foreach ($groups as $group)
-                <a class="list-group-item list-group-item-action" href="{{ action('GroupsController@show', [$user, $group]) }}">
+                <a class="list-group-item list-group-item-action" href="{{ action('GroupsController@show', $group) }}">
                     <h4 class="list-group-item-heading">{{ $group->name }}</h4>
                     <span class="list-group-item-text">Število članov: {{ $group->users->count() }}</span>
                 </a>

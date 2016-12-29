@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="page-header">Posodobi skupino</h1>
 
-    {!! Form::model($group, ['method' => 'PATCH', 'action' => ['GroupsController@update', Auth::user(), $group]]) !!}
+    {!! Form::model($group, ['method' => 'PATCH', 'action' => ['GroupsController@update', $group]]) !!}
     @include ('groups._form', ['submitButtonText' => 'Posodobi'])
     {!! Form::close() !!}
 @endsection
