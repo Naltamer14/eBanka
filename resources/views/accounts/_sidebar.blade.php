@@ -1,7 +1,13 @@
 <div class="col-sm-2 col-md-2 sidebar">
+    @permission('users-read')
+        <span href="#" style="position: relative;padding-left: 70px;margin-top: 24px;">
+                <img src="{{ $user->profile_picture }}" style="width: 48px; height:48px; border-radius:50%; position: absolute; top: -15px; left:10px;" class="img-responsive">
+                {{ $user->name }}</span>
+        </span>
+        <hr>
+    @endpermission
     <ul class="nav nav-sidebar">
         <li class="{{ isActiveRoute('users.accounts.index') }}"><a href="{{ action('AccountsController@index', ($user->exists) ? $user : Auth::user()) }}">Pregled <span class="sr-only">(current)</span></a></li>
-        <hr>
         <li class="{{ isActiveRoute('users.transactions.index') }}"><a href="{!! action('TransactionsController@index', ($user->exists) ? $user : Auth::user()) !!}">Transakcije</a></li>
         <li class="{{ isActiveRoute('users.transactions.create') }}"><a href="{!! action('TransactionsController@create', ($user->exists) ? $user : Auth::user()) !!}">Naredi transakcijo</a></li>
         @permission('transactions-read')

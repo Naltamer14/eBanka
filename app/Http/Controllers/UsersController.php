@@ -84,7 +84,7 @@ class UsersController extends Controller
 
             $user->update($request->all());
 
-            flash('Profil ' . $user->name . ' je bil uspešno posodobljen.', 'success');
+            flash("Profil '" . $user->name . "' je bil uspešno posodobljen.", 'success');
             return redirect('/')
                 ->withErrors($validator, 'UpdateProfile');
         }

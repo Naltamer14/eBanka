@@ -10,7 +10,7 @@
             <li>Uporabniki:
                 <ul>
                     @foreach($group->users as $gUser)
-                        <li>{{ $gUser->name }}</li>
+                        <li><a href="{!! action('UsersController@show', $gUser) !!}">{{ $gUser->name }}</a></li>
                     @endforeach
                 </ul>
             </li>
