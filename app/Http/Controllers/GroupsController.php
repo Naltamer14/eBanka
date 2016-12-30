@@ -22,7 +22,9 @@ class GroupsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('permission:groups-read')->only('all');
+        $this->middleware('checkGroupMembership:groups-read')->only(['show']);
+        $this->middleware('checkGroupMembership:groups-update')->only(['edit', 'update']);
+        $this->middleware('checkGroupMembership:groups-delete')->only('destroy');
     }
 
     /**
@@ -59,7 +61,7 @@ class GroupsController extends Controller
      */
     public function create(User $user)
     {
-        if ($user->exists) {
+        if (!$user->exists) {
             $user = Auth::user();
         }
         $accounts = $user->accounts()->pluck('name', 'id');

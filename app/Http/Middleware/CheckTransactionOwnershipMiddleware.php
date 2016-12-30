@@ -21,8 +21,7 @@ class CheckTransactionOwnershipMiddleware
         }
         else
         {
-            flash("Transakcija " . $request->transaction->id . " ne pripada uporabniku '" . $request->user->name . "'!", 'warning')->important();
-            return redirect('/');
+            return abort(403);
         }
     }
 }

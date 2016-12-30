@@ -40,7 +40,7 @@ class AccountsController extends Controller
         }
         else
         {
-            $groupMembers = collect([User::find($user->id)]);
+            $groupMembers = collect([$user]);
         }
 
         $accounts = $user->accounts()->paginate(10, null, 'accounts');

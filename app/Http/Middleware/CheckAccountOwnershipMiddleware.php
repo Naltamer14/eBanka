@@ -21,8 +21,7 @@ class CheckAccountOwnershipMiddleware
         }
         else
         {
-            flash("Račun '" . $request->account->name . "' ne pripada uporabniku '" . $request->user->name . "'!", 'warning')->important();
-            return redirect('/');
+            return abort(400);
         }
     }
 }

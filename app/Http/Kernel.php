@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'sameUserOrPermission' => \App\Http\Middleware\UserAccessRestrictMiddleware::class,
         'checkAccountOwnership' => \App\Http\Middleware\CheckAccountOwnershipMiddleware::class,
         'checkTransactionOwnership' => \App\Http\Middleware\CheckTransactionOwnershipMiddleware::class,
+        'checkGroupMembership' => \App\Http\Middleware\CheckGroupMembershipMiddleware::class,
     ];
 }

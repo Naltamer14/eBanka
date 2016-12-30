@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Auth;
 use Closure;
 
-class UserAccessRestrictMiddleware
+class CheckGroupMembershipMiddleware
 {
 
     /**
@@ -18,9 +18,12 @@ class UserAccessRestrictMiddleware
      */
     public function handle($request, Closure $next, $permission)
     {
-        if (Auth::id() === $request->user->id || Auth::user()->can($permission)) {
+        if ($request->group->users()->where('id', Auth::id())->count() || Auth::user()->can($permission))
+        {
             return $next($request);
-        } else {
+        }
+        else
+        {
             return abort(403);
         }
     }

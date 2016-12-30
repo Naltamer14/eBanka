@@ -30,7 +30,7 @@
             <a href="{!! route('groups.edit', $group) !!}" class="btn btn-primary">Uredi skupino</a>
         </div>
         <div class="col-lg-1">
-            {!! Form::open(['method'  => 'delete', 'action' => ['GroupsController@destroy', $user, $group]]) !!}
+            {!! Form::open(['method'  => 'delete', 'action' => ['GroupsController@destroy', $group]]) !!}
                 {!! Form::submit('Izbriši skupino', ['class' => 'btn btn-primary']) !!}
             {!! Form::close() !!}
         </div>
