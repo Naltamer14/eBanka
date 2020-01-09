@@ -1,6 +1,5 @@
-# eBanka - Klemen Janez Poličar
-
-This project is a web application, designed for education purposes. Also, it is to be graded.
+# eBanka
+Matura paper for High school, Computer systems and networks.
 
 ## Code
 
