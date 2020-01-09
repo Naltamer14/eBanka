@@ -14,3 +14,5 @@ The registration process is currently broken, but you may login with the followi
 - moderator@app.com     ('password')
 - administrator@app.com ('password')
 - superuser@app.com     ('password')
+
+![Accounts](https://user-images.githubusercontent.com/9630422/72100972-f5447e00-3323-11ea-8c4c-894c85d1db15.png)
